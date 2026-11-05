@@ -140,7 +140,7 @@
                     <h1 class="font-tajawal font-black text-2xl tracking-widest text-white leading-none w-full text-center" style="direction: ltr; unicode-bidi: isolate;">
                         <span>GLOW</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">_HOME</span>
                     </h1>
-                    <p class="text-[13px] text-teal-300 font-extrabold tracking-[0.35em] w-full text-center mt-1">للأدوات المنزلية والمطبخ</p>
+                    <p class="text-[14px] text-teal-300 font-extrabold tracking-[0.35em] w-full text-center mt-1">للأدوات المنزلية والمطبخ</p>
                 </div>
             </div>
 
@@ -227,7 +227,7 @@
 
         <!-- ==================== ADMIN VIEW ==================== -->
         <div id="view-admin" class="hidden space-y-8">
-            <div class="flex items-center justify-between glass-panel p-5 rounded-2xl border-l-4 border-l-brand-violet">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel p-5 rounded-2xl border-l-4 border-l-brand-violet">
                 <div>
                     <h2 class="text-xl font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-purple-400"></i>
@@ -235,10 +235,16 @@
                     </h2>
                     <p class="text-xs text-gray-400 mt-0.5">إدارة القوائم، رفع الشعار، وإضافة المنتجات بأسلوب احترافي.</p>
                 </div>
-                <button onclick="confirmResetDefaults()" class="px-3 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs border border-red-500/30 transition-all flex items-center gap-1.5">
-                    <i class="fa-solid fa-rotate-left"></i>
-                    <span>استعادة الافتراضي</span>
-                </button>
+                <div class="flex items-center gap-2.5">
+                    <button onclick="forceSaveEverything()" class="btn-gradient px-4 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-arrow-down"></i>
+                        <span>حفظ التعديلات نهائياً</span>
+                    </button>
+                    <button onclick="confirmResetDefaults()" class="px-3.5 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs border border-red-500/30 transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        <span>استعادة الافتراضي</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Manage Categories -->
@@ -607,7 +613,18 @@
         function loadData() {
             const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
-                try { products = JSON.parse(saved); } catch (e) { products = initialProducts; }
+                try { 
+                    products = JSON.parse(saved); 
+                    // تصفير عدادات الإعجاب وعدم الإعجاب مع الحفاظ على المنتجات الحالية وتعديلاتك
+                    products.forEach(p => {
+                        p.likes = 0;
+                        p.dislikes = 0;
+                        p.userReaction = null;
+                    });
+                    saveDataToStorage();
+                } catch (e) { 
+                    products = initialProducts; 
+                }
             } else {
                 products = initialProducts;
                 saveDataToStorage();
@@ -617,7 +634,14 @@
 
         function saveDataToStorage() {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+            localStorage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(categories));
             updateCounts();
+        }
+
+        function forceSaveEverything() {
+            saveDataToStorage();
+            saveCategories();
+            showToast("✓ تم حفظ كافة التعديلات والإضافات نهائياً وبنجاح تام!");
         }
 
         function loadStoreLogo() {
@@ -643,7 +667,7 @@
                 compressImage(base64, 500, 500, 0.85, function(compressed) {
                     localStorage.setItem(LOGO_STORAGE_KEY, compressed);
                     loadStoreLogo();
-                    showToast("تم تحديث شعار المتجر بنجاح!");
+                    showToast("✓ تم حفظ الشعار الجديد نهائياً!");
                 });
             };
             reader.readAsDataURL(file);
@@ -1001,18 +1025,6 @@
                 html += `<i class="fa-solid fa-star cursor-pointer text-base transition-transform hover:scale-125 ${active ? 'text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]' : 'text-gray-600 hover:text-amber-300'}" onclick="rateProduct('${p.id}', ${i})" title="تقييم ${i} نجوم"></i>`;
             }
             container.innerHTML = html;
-        }
-
-        function rateProduct(id, stars) {
-            const p = products.find(item => item.id === id);
-            if (!p) return;
-            if (!p.ratings) p.ratings = [];
-            p.ratings.push(stars);
-            p.userRating = stars;
-            saveDataToStorage();
-            renderStarRating(p);
-            renderCatalog();
-            showToast(`شكراً لك! تم تسجيل تقييمك بـ ${stars} نجمات للمنتج`);
         }
 
         function rateProduct(id, stars) {
