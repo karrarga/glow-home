@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>GLOW_HOME | الكتالوج الرقمي الفاخر</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -48,10 +48,11 @@
             background-attachment: fixed;
             color: #e2e8f0;
             min-height: 100vh;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .glass-panel {
-            background: rgba(18, 22, 32, 0.65);
+            background: rgba(18, 22, 32, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -59,21 +60,23 @@
         }
 
         .glass-card {
-            background: rgba(22, 27, 38, 0.6);
+            background: rgba(22, 27, 38, 0.7);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.07);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease;
         }
 
-        .glass-card:hover {
-            border-color: rgba(13, 107, 130, 0.5);
-            box-shadow: 0 12px 30px -10px rgba(13, 107, 130, 0.4), 0 0 20px 0 rgba(74, 21, 75, 0.3);
-            transform: translateY(-4px);
+        @media (hover: hover) {
+            .glass-card:hover {
+                border-color: rgba(13, 107, 130, 0.5);
+                box-shadow: 0 12px 30px -10px rgba(13, 107, 130, 0.4), 0 0 20px 0 rgba(74, 21, 75, 0.3);
+                transform: translateY(-4px);
+            }
         }
 
         .glass-input {
-            background: rgba(10, 12, 16, 0.7);
+            background: rgba(10, 12, 16, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(8px);
             color: #fff;
@@ -89,82 +92,64 @@
         .btn-gradient {
             background: linear-gradient(135deg, #0d6b82 0%, #4a154b 100%);
             transition: all 0.3s ease;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        .btn-gradient::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(135deg, #1495b5 0%, #7a227c 100%);
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.3s ease;
-        }
-
-        .btn-gradient:hover::before {
-            opacity: 1;
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
             background: #0a0c10;
         }
         ::-webkit-scrollbar-thumb {
             background: #1e2638;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #0d6b82;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen selection:bg-brand-turquoise selection:text-white">
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="sticky top-0 z-40 glass-panel border-b border-brand-border px-4 lg:px-8 py-3">
-        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+    <header class="sticky top-0 z-40 glass-panel border-b border-brand-border px-3 sm:px-6 py-2.5 sm:py-3">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
             
             <!-- Logo & Brand Name -->
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('catalog')">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-turquoise to-brand-violet flex items-center justify-center p-0.5 shadow-lg shadow-brand-turquoise/20 overflow-hidden shrink-0">
+            <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchTab('catalog')">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-tr from-brand-turquoise to-brand-violet flex items-center justify-center p-0.5 shadow-lg shadow-brand-turquoise/20 overflow-hidden shrink-0">
                     <div id="header-logo-container" class="w-full h-full bg-brand-dark rounded-full flex items-center justify-center overflow-hidden">
                         <img id="custom-header-logo" src="" alt="GLOW_HOME Logo" class="w-full h-full object-cover">
                     </div>
                 </div>
                 <div class="flex flex-col items-center">
-                    <h1 class="font-tajawal font-black text-2xl tracking-widest text-white leading-none w-full text-center" style="direction: ltr; unicode-bidi: isolate;">
+                    <h1 class="font-tajawal font-black text-xl sm:text-2xl tracking-widest text-white leading-none w-full text-center" style="direction: ltr; unicode-bidi: isolate;">
                         <span>GLOW</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">_HOME</span>
                     </h1>
-                    <p class="text-[14px] text-teal-300 font-extrabold tracking-[0.35em] w-full text-center mt-1">للأدوات المنزلية والمطبخ</p>
+                    <p class="text-[11px] sm:text-[13px] text-teal-300 font-extrabold tracking-[0.3em] sm:tracking-[0.35em] w-full text-center mt-0.5">للأدوات المنزلية والمطبخ</p>
                 </div>
             </div>
 
             <!-- Header Action Buttons -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
                 <a href="https://www.instagram.com/0_glow.home?dlrf=MTdmd3Q1OGZpbnU0YQ==" target="_blank" 
-                   class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pink-500/10 text-pink-400 border border-pink-500/30 hover:bg-pink-500/20 transition-all">
+                   class="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold bg-pink-500/10 text-pink-400 border border-pink-500/30 hover:bg-pink-500/20 transition-all">
                     <i class="fa-brands fa-instagram text-sm"></i>
                     <span>@0_glow.home</span>
                 </a>
 
-                <button onclick="manualRefresh()" title="تحديث البيانات" class="p-2 rounded-xl bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 border border-teal-500/30 transition-all">
-                    <i class="fa-solid fa-rotate text-xs"></i>
+                <button onclick="manualRefresh()" title="تحديث البيانات" class="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 border border-teal-500/30 transition-all text-xs flex items-center gap-1">
+                    <i class="fa-solid fa-rotate"></i>
+                    <span class="hidden sm:inline">تحديث</span>
                 </button>
 
                 <!-- Mode Switcher -->
-                <div class="bg-black/40 p-1 rounded-xl border border-white/10 flex items-center text-xs font-bold">
+                <div class="bg-black/50 p-1 rounded-xl border border-white/10 flex items-center text-xs font-bold">
                     <button id="btn-user-view" onclick="setMode('user')" 
-                            class="px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md">
+                            class="px-2.5 sm:px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md">
                         <i class="fa-solid fa-store"></i>
                         <span>الزبون</span>
                     </button>
                     <button id="btn-admin-view" onclick="openAdminAuthModal()" 
-                            class="px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
+                            class="px-2.5 sm:px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1">
                         <i class="fa-solid fa-user-gear"></i>
                         <span>الإدارة</span>
                     </button>
@@ -174,41 +159,41 @@
     </header>
 
     <!-- HERO SECTION & MAIN CONTAINER -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-4 sm:space-y-6">
 
         <!-- ==================== CUSTOMER VIEW ==================== -->
-        <div id="view-customer" class="space-y-6">
+        <div id="view-customer" class="space-y-4 sm:space-y-6">
             <!-- Hero Banner -->
-            <div class="glass-panel rounded-3xl p-6 md:p-8 relative overflow-hidden border border-white/10 flex flex-col md:flex-row items-center justify-between gap-6 text-justify">
-                <div class="space-y-3 max-w-2xl">
+            <div class="glass-panel rounded-2xl sm:rounded-3xl p-5 sm:p-8 relative overflow-hidden border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-right">
+                <div class="space-y-2 sm:space-y-3 max-w-2xl w-full">
                     <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-turquoise/20 text-teal-300 border border-brand-turquoise/40">
                         <i class="fa-solid fa-star text-amber-400 text-xs"></i>
                         <span>تشكيلة حصرية وفاخرة</span>
                     </div>
-                    <h2 class="text-2xl md:text-3xl font-extrabold text-white leading-relaxed">
-                        اجعل ومطبخك يتألق بـ<br>
-                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-teal-400 to-purple-400 drop-shadow-[0_0_15px_rgba(20,149,181,0.6)] animate-pulse inline-block mt-1">فخامة منتجات كلو هوم</span>
+                    <h2 class="text-xl sm:text-3xl font-extrabold text-white leading-relaxed">
+                        اجعل منزلك ومطبخك يتألق بـ<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-teal-400 to-purple-400 drop-shadow-[0_0_15px_rgba(20,149,181,0.6)] inline-block mt-1">فخامة منتجات كلو هوم</span>
                     </h2>
-                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                    <p class="text-gray-300 text-xs sm:text-sm leading-relaxed">
                         تصفح مجموعتنا الحصرية المجهزة بأعلى معايير الجمال والذوق الرفيع. اطلب قطعك المفضلة الآن بضغطة زر واحدة.
                     </p>
                 </div>
-                <div class="flex items-center gap-4 bg-black/40 p-4 rounded-2xl border border-white/10 shrink-0">
+                <div class="flex items-center justify-around md:justify-center gap-4 bg-black/40 p-3.5 sm:p-4 rounded-2xl border border-white/10 w-full md:w-auto shrink-0">
                     <div class="text-center px-3 border-l border-white/10">
-                        <span class="block text-xl font-bold text-teal-400" id="total-products-count">0</span>
-                        <span class="text-[11px] text-gray-400">منتج متاح</span>
+                        <span class="block text-lg sm:text-xl font-bold text-teal-400" id="total-products-count">0</span>
+                        <span class="text-[10px] sm:text-[11px] text-gray-400">منتج متاح</span>
                     </div>
                     <div class="text-center px-3">
-                        <span class="block text-xl font-bold text-purple-400">100%</span>
-                        <span class="text-[11px] text-gray-400">أصلي ومضمون</span>
+                        <span class="block text-lg sm:text-xl font-bold text-purple-400">100%</span>
+                        <span class="text-[10px] sm:text-[11px] text-gray-400">أصلي ومضمون</span>
                     </div>
                 </div>
             </div>
 
             <!-- Categories Bar & Search -->
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel p-4 rounded-2xl">
-                <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none" id="categories-container"></div>
-                <div class="relative w-full md:w-64">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 glass-panel p-3.5 sm:p-4 rounded-2xl">
+                <div class="flex items-center gap-2 overflow-x-auto w-full pb-1 sm:pb-0 scrollbar-none" id="categories-container"></div>
+                <div class="relative w-full sm:w-64 shrink-0">
                     <i class="fa-solid fa-magnifying-glass absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
                     <input type="text" id="search-input" onkeyup="renderCatalog()" placeholder="بحث عن منتج..." 
                            class="w-full glass-input pr-9 pl-3 py-2 rounded-xl text-xs">
@@ -216,56 +201,54 @@
             </div>
 
             <!-- Catalog Grid -->
-            <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+            <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"></div>
 
-            <div id="empty-catalog-msg" class="hidden text-center py-16 glass-panel rounded-3xl border border-white/10">
-                <i class="fa-solid fa-box-open text-5xl text-gray-500 mb-4"></i>
-                <h3 class="text-lg font-bold text-gray-300">لا توجد منتجات مطابقة للبحث</h3>
+            <div id="empty-catalog-msg" class="hidden text-center py-12 sm:py-16 glass-panel rounded-3xl border border-white/10">
+                <i class="fa-solid fa-box-open text-4xl sm:text-5xl text-gray-500 mb-3"></i>
+                <h3 class="text-base sm:text-lg font-bold text-gray-300">لا توجد منتجات مطابقة للبحث</h3>
                 <p class="text-xs text-gray-400 mt-1">جرّب البحث باسم آخر أو اختر قائمة مختلفة</p>
             </div>
         </div>
 
         <!-- ==================== ADMIN VIEW ==================== -->
-        <div id="view-admin" class="hidden space-y-8">
-            <div class="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel p-5 rounded-2xl border-l-4 border-l-brand-violet">
+        <div id="view-admin" class="hidden space-y-6 sm:space-y-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 glass-panel p-4 sm:p-5 rounded-2xl border-l-4 border-l-brand-violet">
                 <div>
-                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                    <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-sliders text-purple-400"></i>
                         <span>لوحة تحكم إدارة GLOW_HOME</span>
                     </h2>
                     <p class="text-xs text-gray-400 mt-0.5">إدارة القوائم، رفع الشعار، وإضافة المنتجات بأسلوب احترافي.</p>
                 </div>
-                <div class="flex items-center gap-2.5">
-                    <button onclick="forceSaveEverything()" class="btn-gradient px-4 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg flex items-center gap-2">
+                <div class="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                    <button onclick="forceSaveEverything()" class="flex-1 sm:flex-none btn-gradient px-4 py-2.5 rounded-xl text-xs font-bold text-white shadow-lg flex items-center justify-center gap-2">
                         <i class="fa-solid fa-cloud-arrow-down"></i>
-                        <span>حفظ التعديلات نهائياً</span>
+                        <span>حفظ نهائي</span>
                     </button>
-                    <button onclick="confirmResetDefaults()" class="px-3.5 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs border border-red-500/30 transition-all flex items-center gap-1.5">
+                    <button onclick="confirmResetDefaults()" class="px-3.5 py-2.5 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs border border-red-500/30 transition-all flex items-center justify-center gap-1.5">
                         <i class="fa-solid fa-rotate-left"></i>
-                        <span>استعادة الافتراضي</span>
+                        <span>الافتراضي</span>
                     </button>
                 </div>
             </div>
 
             <!-- Manage Categories -->
-            <div class="glass-panel p-5 rounded-3xl border border-white/10 space-y-4">
+            <div class="glass-panel p-4 sm:p-5 rounded-3xl border border-white/10 space-y-3">
                 <h4 class="text-sm font-bold text-white flex items-center gap-2">
                     <i class="fa-solid fa-tags text-teal-400"></i>
                     <span>إدارة قوائم المتجر (التصنيفات)</span>
                 </h4>
-                <div class="flex flex-wrap items-center gap-3">
-                    <div class="flex items-center gap-2">
-                        <input type="text" id="new-category-name" placeholder="اسم القائمة الجديدة..." class="glass-input px-3 py-2 rounded-xl text-xs w-48">
-                        <button onclick="addNewCategory()" class="btn-gradient px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md">إضافة قائمة</button>
-                    </div>
+                <div class="flex items-center gap-2 w-full sm:w-auto">
+                    <input type="text" id="new-category-name" placeholder="اسم القائمة الجديدة..." class="glass-input px-3 py-2 rounded-xl text-xs flex-1 sm:w-48">
+                    <button onclick="addNewCategory()" class="btn-gradient px-4 py-2 rounded-xl text-xs font-bold text-white shadow-md shrink-0">إضافة</button>
                 </div>
                 <div id="admin-categories-list" class="flex flex-wrap items-center gap-2 pt-2 border-t border-white/10"></div>
             </div>
 
             <!-- Logo Management -->
-            <div class="glass-panel p-5 rounded-3xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div class="flex items-center gap-4">
-                    <div class="w-16 h-16 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center overflow-hidden p-1">
+            <div class="glass-panel p-4 sm:p-5 rounded-3xl border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <div class="w-14 h-14 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center overflow-hidden p-1 shrink-0">
                         <img id="admin-logo-preview-img" src="" alt="Logo Preview" class="w-full h-full object-cover rounded-xl">
                     </div>
                     <div>
@@ -273,25 +256,25 @@
                             <span>شعار المتجر</span>
                             <span class="text-[10px] bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded-full border border-teal-500/30">متاح للتغيير</span>
                         </h4>
-                        <p class="text-xs text-gray-400">اختر شعاراً جديداً ليتم تحديثه في المتجر</p>
+                        <p class="text-xs text-gray-400">اختر شعاراً جديداً للمتجر</p>
                     </div>
                 </div>
-                <label class="cursor-pointer px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-turquoise to-teal-600 text-white text-xs font-bold hover:opacity-90 transition-all flex items-center gap-2 shadow-lg">
+                <label class="cursor-pointer w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-brand-turquoise to-teal-600 text-white text-xs font-bold text-center hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-lg">
                     <i class="fa-solid fa-upload"></i>
                     <span>رفع شعار جديد</span>
                     <input type="file" id="admin-logo-file" accept="image/*" class="hidden" onchange="handleAdminLogoSelect(event)">
                 </label>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
                 <!-- Form -->
-                <div class="lg:col-span-1 glass-panel p-6 rounded-3xl h-fit border border-white/10">
+                <div class="lg:col-span-1 glass-panel p-5 sm:p-6 rounded-3xl h-fit border border-white/10">
                     <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
                         <i class="fa-solid fa-plus-circle text-teal-400"></i>
                         <span id="form-title">إضافة منتج جديد</span>
                     </h3>
 
-                    <form id="product-form" onsubmit="prepareFormSubmit(event)" class="space-y-4">
+                    <form id="product-form" onsubmit="prepareFormSubmit(event)" class="space-y-3.5">
                         <input type="hidden" id="edit-product-id">
                         <input type="hidden" id="prod-image-data">
 
@@ -300,9 +283,9 @@
                             <input type="text" id="prod-name" required placeholder="مثال: فازة بابلز أنيقة" class="w-full glass-input p-2.5 rounded-xl text-xs">
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-2.5">
                             <div>
-                                <label class="block text-xs font-semibold text-gray-300 mb-1">القائمة (الفئة) *</label>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">القائمة *</label>
                                 <select id="prod-category" required class="w-full glass-input p-2.5 rounded-xl text-xs bg-brand-dark"></select>
                             </div>
                             <div>
@@ -311,7 +294,7 @@
                             </div>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-3">
+                        <div class="grid grid-cols-2 gap-2.5">
                             <div>
                                 <label class="block text-xs font-semibold text-gray-300 mb-1">القطع المتوفرة *</label>
                                 <input type="number" id="prod-stock" required min="0" placeholder="8" class="w-full glass-input p-2.5 rounded-xl text-xs">
@@ -319,22 +302,22 @@
                             <div>
                                 <label class="block text-xs font-semibold text-gray-300 mb-1">شارة المنتج *</label>
                                 <select id="prod-badge" required class="w-full glass-input p-2.5 rounded-xl text-xs bg-brand-dark">
-                                    <option value="available">متوفر (تركوازي)</option>
-                                    <option value="new">جديد (أزرق)</option>
-                                    <option value="soldout">نافذ (أحمر)</option>
-                                    <option value="booking">حجز (أصفر)</option>
+                                    <option value="available">متوفر</option>
+                                    <option value="new">جديد</option>
+                                    <option value="soldout">نافذ</option>
+                                    <option value="booking">حجز</option>
                                 </select>
                             </div>
                         </div>
 
                         <!-- Dimensions (سم) -->
                         <div>
-                            <label class="block text-xs font-semibold text-teal-300 mb-1">أبعاد وقياسات المنتج (بالسم - اختياري):</label>
+                            <label class="block text-xs font-semibold text-teal-300 mb-1">أبعاد وقياسات المنتج (بالسم):</label>
                             <div class="grid grid-cols-2 gap-2">
-                                <input type="number" step="0.1" id="prod-height" placeholder="الارتفاع (سم)" class="glass-input p-2 rounded-xl text-xs">
-                                <input type="number" step="0.1" id="prod-width" placeholder="العرض (سم)" class="glass-input p-2 rounded-xl text-xs">
-                                <input type="number" step="0.1" id="prod-diameter" placeholder="القطر (سم)" class="glass-input p-2 rounded-xl text-xs">
-                                <input type="number" step="0.1" id="prod-depth" placeholder="العمق (سم)" class="glass-input p-2 rounded-xl text-xs">
+                                <input type="number" step="0.1" id="prod-height" placeholder="الارتفاع" class="glass-input p-2 rounded-xl text-xs">
+                                <input type="number" step="0.1" id="prod-width" placeholder="العرض" class="glass-input p-2 rounded-xl text-xs">
+                                <input type="number" step="0.1" id="prod-diameter" placeholder="القطر" class="glass-input p-2 rounded-xl text-xs">
+                                <input type="number" step="0.1" id="prod-depth" placeholder="العمق" class="glass-input p-2 rounded-xl text-xs">
                             </div>
                         </div>
 
@@ -343,10 +326,10 @@
                             <div class="flex flex-col gap-2">
                                 <label class="cursor-pointer glass-input p-3 rounded-xl flex items-center justify-center gap-2 text-xs font-medium hover:border-teal-400 transition-all">
                                     <i class="fa-solid fa-image text-teal-400 text-sm"></i>
-                                    <span id="image-upload-label">اختر صورة من جهازك...</span>
+                                    <span id="image-upload-label">اختر صورة...</span>
                                     <input type="file" id="prod-image-file" accept="image/*" class="hidden" onchange="handleImageFileSelect(event)">
                                 </label>
-                                <div id="image-preview-container" class="hidden relative rounded-xl overflow-hidden border border-white/10 h-32 bg-black/40">
+                                <div id="image-preview-container" class="hidden relative rounded-xl overflow-hidden border border-white/10 h-28 bg-black/40">
                                     <img id="image-preview-img" src="" class="w-full h-full object-cover">
                                     <button type="button" onclick="clearImageSelection()" class="absolute top-2 left-2 bg-black/60 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
                                         <i class="fa-solid fa-xmark"></i>
@@ -357,7 +340,7 @@
 
                         <div>
                             <label class="block text-xs font-semibold text-gray-300 mb-1">الوصف التفصيلي *</label>
-                            <textarea id="prod-desc" rows="3" required placeholder="اكتب تفاصيل المنتج..." class="w-full glass-input p-2.5 rounded-xl text-xs"></textarea>
+                            <textarea id="prod-desc" rows="2.5" required placeholder="تفاصيل المنتج..." class="w-full glass-input p-2.5 rounded-xl text-xs"></textarea>
                         </div>
 
                         <div class="flex items-center gap-2 pt-2">
@@ -365,13 +348,13 @@
                                 <i class="fa-solid fa-save"></i>
                                 <span>حفظ المنتج</span>
                             </button>
-                            <button type="button" id="cancel-edit-btn" onclick="resetForm()" class="hidden px-3 py-2.5 rounded-xl bg-gray-700/50 text-gray-300 text-xs font-semibold hover:bg-gray-700">إلغاء</button>
+                            <button type="button" id="cancel-edit-btn" onclick="resetForm()" class="hidden px-3 py-2.5 rounded-xl bg-gray-700/50 text-gray-300 text-xs font-semibold">إلغاء</button>
                         </div>
                     </form>
                 </div>
 
                 <!-- Table -->
-                <div class="lg:col-span-2 glass-panel p-6 rounded-3xl border border-white/10">
+                <div class="lg:col-span-2 glass-panel p-4 sm:p-6 rounded-3xl border border-white/10">
                     <h3 class="text-base font-bold text-white mb-4 flex items-center justify-between border-b border-white/10 pb-3">
                         <span class="flex items-center gap-2">
                             <i class="fa-solid fa-boxes-stacked text-purple-400"></i>
@@ -381,7 +364,7 @@
                     </h3>
 
                     <div class="overflow-x-auto">
-                        <table class="w-full text-right text-xs">
+                        <table class="w-full text-right text-xs min-w-[500px]">
                             <thead class="bg-black/40 text-gray-400 border-b border-white/10">
                                 <tr>
                                     <th class="p-3">المنتج</th>
@@ -413,50 +396,48 @@
                 <input type="password" id="admin-pass-input" placeholder="رمز المرور..." required class="w-full glass-input p-3 rounded-xl text-center text-sm font-mono tracking-widest">
                 <div class="flex items-center gap-3">
                     <button type="submit" class="flex-1 btn-gradient py-2.5 rounded-xl text-xs font-bold text-white shadow-lg">دخول</button>
-                    <button type="button" onclick="closeAdminAuthModal()" class="flex-1 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold hover:bg-gray-700 border border-white/10">إلغاء</button>
+                    <button type="button" onclick="closeAdminAuthModal()" class="flex-1 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold border border-white/10">إلغاء</button>
                 </div>
             </form>
         </div>
     </div>
 
     <!-- PRODUCT DETAIL MODAL -->
-    <div id="product-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-panel w-full max-w-2xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeModal()" class="absolute top-4 left-4 z-10 w-9 h-9 rounded-full bg-black/60 text-gray-300 hover:text-white flex items-center justify-center backdrop-blur-sm border border-white/10">
-                <i class="fa-solid fa-xmark text-lg"></i>
+    <div id="product-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-2xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative max-h-[92vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-3 left-3 sm:top-4 sm:left-4 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/70 text-gray-300 hover:text-white flex items-center justify-center backdrop-blur-sm border border-white/10">
+                <i class="fa-solid fa-xmark text-base sm:text-lg"></i>
             </button>
 
             <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="relative h-64 md:h-full min-h-[280px] bg-black/40 flex items-center justify-center p-2">
-                    <img id="modal-img" src="" alt="" class="w-full h-full object-cover rounded-xl">
+                <div class="relative h-60 sm:h-72 md:h-full bg-black/40 flex items-center justify-center p-2">
+                    <img id="modal-img" src="" alt="" class="w-full h-full object-cover rounded-2xl">
                     <div class="absolute top-3 right-3">
-                        <span id="modal-stock-badge" class="bg-black/40 backdrop-blur-md text-teal-300 border border-white/20 text-[10px] font-bold px-3 py-1 rounded-full"></span>
+                        <span id="modal-stock-badge" class="bg-black/60 backdrop-blur-md text-teal-300 border border-white/20 text-[10px] font-bold px-3 py-1 rounded-full"></span>
                     </div>
                 </div>
 
-                <div class="p-6 flex flex-col justify-between space-y-4">
+                <div class="p-4 sm:p-6 flex flex-col justify-between space-y-4">
                     <div>
                         <span id="modal-category" class="text-[11px] font-bold text-teal-400 uppercase tracking-wider"></span>
-                        <h3 id="modal-title" class="text-xl font-black text-white mt-1"></h3>
+                        <h3 id="modal-title" class="text-lg sm:text-xl font-black text-white mt-1"></h3>
                         
                         <!-- Interactive Rating & Reactions -->
-                        <div class="flex items-center justify-between border-y border-white/10 py-2.5 my-3">
-                            <div class="flex items-center gap-1" id="modal-star-rating">
-                                <!-- Star Rating JS Generated -->
-                            </div>
+                        <div class="flex items-center justify-between border-y border-white/10 py-2 my-3">
+                            <div class="flex items-center gap-1" id="modal-star-rating"></div>
                             <div class="flex items-center gap-3">
-                                <button onclick="toggleReaction('like')" class="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-gray-300">
+                                <button onclick="toggleReaction('like')" class="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 text-gray-300">
                                     <i class="fa-solid fa-thumbs-up text-teal-400"></i>
                                     <span id="modal-like-count">0</span>
                                 </button>
-                                <button onclick="toggleReaction('dislike')" class="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-gray-300">
+                                <button onclick="toggleReaction('dislike')" class="flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-xl bg-white/5 border border-white/10 text-gray-300">
                                     <i class="fa-solid fa-thumbs-down text-rose-400"></i>
                                     <span id="modal-dislike-count">0</span>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Product Dimensions (Separated in dark boxes) -->
+                        <!-- Product Dimensions -->
                         <div id="modal-dimensions-container" class="grid grid-cols-2 gap-2 my-3 text-[11px]">
                             <div id="dim-height" class="bg-black/60 p-2.5 rounded-xl border border-white/5 text-gray-300">الارتفاع: <span class="text-teal-300 font-bold"></span></div>
                             <div id="dim-width" class="bg-black/60 p-2.5 rounded-xl border border-white/5 text-gray-300">العرض: <span class="text-teal-300 font-bold"></span></div>
@@ -464,21 +445,21 @@
                             <div id="dim-depth" class="bg-black/60 p-2.5 rounded-xl border border-white/5 text-gray-300">العمق: <span class="text-teal-300 font-bold"></span></div>
                         </div>
 
-                        <p id="modal-desc" class="text-xs text-gray-300 mt-3 leading-relaxed"></p>
+                        <p id="modal-desc" class="text-xs text-gray-300 mt-2 leading-relaxed"></p>
                     </div>
 
-                    <div class="pt-4 border-t border-white/10 space-y-3">
+                    <div class="pt-3 border-t border-white/10 space-y-3">
                         <div class="flex items-center justify-between">
                             <span class="text-xs text-gray-400">السعر الإجمالي:</span>
                             <div class="flex items-center gap-2">
-                                <span id="modal-price" class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400"></span>
+                                <span id="modal-price" class="text-lg sm:text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400"></span>
                                 <span id="modal-status-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold"></span>
                             </div>
                         </div>
                         <button id="modal-order-btn" onclick="triggerOrderFromModal()" 
-                            class="w-full py-3 rounded-2xl font-bold text-white text-xs flex items-center justify-center gap-2 shadow-lg bg-gradient-to-r from-brand-turquoise to-teal-600 hover:opacity-90 transition-all">
-                            <i class="fa-brands fa-instagram text-lg"></i>
-                            <span>اطلب الان</span>
+                            class="w-full py-3 rounded-2xl font-bold text-white text-xs flex items-center justify-center gap-2 shadow-lg bg-gradient-to-r from-brand-turquoise to-teal-600">
+                            <i class="fa-brands fa-instagram text-base"></i>
+                            <span>اطلب الان عبر الإنستغرام</span>
                         </button>
                     </div>
                 </div>
@@ -488,15 +469,13 @@
 
     <!-- ORDER CONFIRMATION MODAL -->
     <div id="order-confirm-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-panel w-full max-w-md p-6 rounded-3xl border border-white/20 shadow-2xl space-y-5 text-center">
-            <div class="w-16 h-16 bg-gradient-to-tr from-brand-turquoise to-brand-violet text-white rounded-full flex items-center justify-center mx-auto shadow-lg shadow-brand-turquoise/30">
-                <i class="fa-brands fa-instagram text-3xl"></i>
+        <div class="glass-panel w-full max-w-md p-6 rounded-3xl border border-white/20 shadow-2xl space-y-4 text-center">
+            <div class="w-14 h-14 bg-gradient-to-tr from-brand-turquoise to-brand-violet text-white rounded-full flex items-center justify-center mx-auto shadow-lg">
+                <i class="fa-brands fa-instagram text-2xl"></i>
             </div>
             <div>
-                <h3 class="text-lg font-bold text-white">تأكيد طلب المنتج</h3>
-                <p class="text-xs text-gray-300 mt-2 leading-relaxed">
-                    سيتم نسخ التفاصيل وفتح محادثة الإنستغرام لإرسال الطلب لمتجر GLOW_HOME:
-                </p>
+                <h3 class="text-base sm:text-lg font-bold text-white">تأكيد طلب المنتج</h3>
+                <p class="text-xs text-gray-300 mt-1 leading-relaxed">سيتم نسخ التفاصيل وفتح الإنستغرام لإرسال الطلب:</p>
                 <div class="bg-black/40 p-3 rounded-2xl border border-white/10 mt-3 text-right space-y-1">
                     <div class="text-xs text-teal-300 font-bold" id="order-confirm-name"></div>
                     <div class="text-xs text-purple-300 font-extrabold" id="order-confirm-price"></div>
@@ -505,39 +484,39 @@
             <div class="flex items-center gap-3 pt-2">
                 <button onclick="executeOrderAndRedirect()" class="flex-1 btn-gradient py-3 rounded-xl text-xs font-bold text-white shadow-lg flex items-center justify-center gap-2">
                     <i class="fa-solid fa-paper-plane"></i>
-                    <span>موافق، ارسل الطلب الان</span>
+                    <span>موافق، ارسل الطلب</span>
                 </button>
-                <button onclick="closeOrderConfirmModal()" class="flex-1 py-3 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold hover:bg-gray-700 border border-white/10">إلغاء</button>
+                <button onclick="closeOrderConfirmModal()" class="flex-1 py-3 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold border border-white/10">إلغاء</button>
             </div>
         </div>
     </div>
 
     <!-- CONFIRMATION MODAL -->
     <div id="confirm-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
-        <div class="glass-panel w-full max-w-md p-6 rounded-3xl border border-white/20 shadow-2xl space-y-5 text-center">
-            <div class="w-14 h-14 bg-brand-turquoise/20 text-teal-400 rounded-2xl flex items-center justify-center mx-auto border border-brand-turquoise/30">
-                <i class="fa-solid fa-circle-question text-2xl"></i>
+        <div class="glass-panel w-full max-w-md p-6 rounded-3xl border border-white/20 shadow-2xl space-y-4 text-center">
+            <div class="w-12 h-12 bg-brand-turquoise/20 text-teal-400 rounded-2xl flex items-center justify-center mx-auto border border-brand-turquoise/30">
+                <i class="fa-solid fa-circle-question text-xl"></i>
             </div>
             <div>
-                <h3 id="confirm-title" class="text-lg font-bold text-white">تأكيد الإجراء</h3>
-                <p id="confirm-msg" class="text-xs text-gray-300 mt-2 leading-relaxed">هل تريد الاستمرار؟</p>
+                <h3 id="confirm-title" class="text-base sm:text-lg font-bold text-white">تأكيد الإجراء</h3>
+                <p id="confirm-msg" class="text-xs text-gray-300 mt-2 leading-relaxed"></p>
             </div>
             <div class="flex items-center gap-3 pt-2">
                 <button id="confirm-ok-btn" class="flex-1 btn-gradient py-2.5 rounded-xl text-xs font-bold text-white shadow-lg">تأكيد</button>
-                <button onclick="closeConfirmModal()" class="flex-1 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold hover:bg-gray-700 border border-white/10">إلغاء</button>
+                <button onclick="closeConfirmModal()" class="flex-1 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold border border-white/10">إلغاء</button>
             </div>
         </div>
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-5 left-5 z-50 hidden glass-panel px-4 py-3 rounded-2xl border border-teal-500/40 shadow-xl flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+    <div id="toast" class="fixed bottom-4 left-4 right-4 sm:right-auto sm:left-5 z-50 hidden glass-panel px-4 py-3 rounded-2xl border border-teal-500/40 shadow-xl flex items-center gap-3 text-center sm:text-right">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg shrink-0"></i>
         <span id="toast-msg" class="text-xs font-bold text-white">تمت العملية بنجاح!</span>
     </div>
 
     <!-- FOOTER -->
     <footer class="mt-auto border-t border-white/10 glass-panel py-6 text-center text-xs text-gray-400">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
             <p>© 2026 متجر <span class="text-teal-400 font-bold">GLOW_HOME</span> - جميع الحقوق محفوظة</p>
             <div class="flex items-center gap-4">
                 <a href="https://www.instagram.com/0_glow.home?dlrf=MTdmd3Q1OGZpbnU0YQ==" target="_blank" class="hover:text-pink-400 transition-colors flex items-center gap-1">
@@ -615,13 +594,11 @@
             if (saved) {
                 try { 
                     products = JSON.parse(saved); 
-                    // تصفير عدادات الإعجاب وعدم الإعجاب مع الحفاظ على المنتجات الحالية وتعديلاتك
                     products.forEach(p => {
-                        p.likes = 0;
-                        p.dislikes = 0;
-                        p.userReaction = null;
+                        if (p.likes === undefined) p.likes = 0;
+                        if (p.dislikes === undefined) p.dislikes = 0;
+                        if (!p.ratings) p.ratings = [];
                     });
-                    saveDataToStorage();
                 } catch (e) { 
                     products = initialProducts; 
                 }
@@ -641,7 +618,7 @@
         function forceSaveEverything() {
             saveDataToStorage();
             saveCategories();
-            showToast("✓ تم حفظ كافة التعديلات والإضافات نهائياً وبنجاح تام!");
+            showToast("✓ تم حفظ كافة التعديلات نهائياً!");
         }
 
         function loadStoreLogo() {
@@ -667,7 +644,7 @@
                 compressImage(base64, 500, 500, 0.85, function(compressed) {
                     localStorage.setItem(LOGO_STORAGE_KEY, compressed);
                     loadStoreLogo();
-                    showToast("✓ تم حفظ الشعار الجديد نهائياً!");
+                    showToast("✓ تم حفظ الشعار الجديد!");
                 });
             };
             reader.readAsDataURL(file);
@@ -686,14 +663,10 @@
 
         function getBadgeInfo(badgeType) {
             switch(badgeType) {
-                case 'new':
-                    return { label: 'جديد', bg: 'bg-blue-500/20 text-blue-400 border-blue-500/40' };
-                case 'soldout':
-                    return { label: 'نافذ', bg: 'bg-rose-500/20 text-rose-400 border-rose-500/40' };
-                case 'booking':
-                    return { label: 'حجز', bg: 'bg-amber-500/20 text-amber-400 border-amber-500/40' };
-                default:
-                    return { label: 'متوفر', bg: 'bg-teal-500/20 text-teal-300 border-teal-500/40' };
+                case 'new': return { label: 'جديد', bg: 'bg-blue-500/20 text-blue-400 border-blue-500/40' };
+                case 'soldout': return { label: 'نافذ', bg: 'bg-rose-500/20 text-rose-400 border-rose-500/40' };
+                case 'booking': return { label: 'حجز', bg: 'bg-amber-500/20 text-amber-400 border-amber-500/40' };
+                default: return { label: 'متوفر', bg: 'bg-teal-500/20 text-teal-300 border-teal-500/40' };
             }
         }
 
@@ -719,7 +692,7 @@
             if (pass === ADMIN_PASSWORD) {
                 closeAdminAuthModal();
                 setMode('admin');
-                showToast("تم تسجيل الدخول بنجاح إلى لوحة الإدارة");
+                showToast("تم تسجيل الدخول بنجاح");
             } else {
                 showToast("رمز المرور غير صحيح!");
                 input.value = '';
@@ -736,23 +709,21 @@
             if (mode === 'user') {
                 if (userView) userView.classList.remove('hidden');
                 if (adminView) adminView.classList.add('hidden');
-                if (userBtn) userBtn.className = "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md";
-                if (adminBtn) adminBtn.className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1.5";
+                if (userBtn) userBtn.className = "px-2.5 sm:px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md";
+                if (adminBtn) adminBtn.className = "px-2.5 sm:px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1";
                 renderCatalog();
             } else {
                 if (userView) userView.classList.add('hidden');
                 if (adminView) adminView.classList.remove('hidden');
-                if (adminBtn) adminBtn.className = "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md";
-                if (userBtn) userBtn.className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1.5";
+                if (adminBtn) adminBtn.className = "px-2.5 sm:px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md";
+                if (userBtn) userBtn.className = "px-2.5 sm:px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1";
                 renderAdminCategories();
                 populateCategoryDropdown();
                 renderAdminTable();
             }
         }
 
-        function switchTab(tab) {
-            setMode('user');
-        }
+        function switchTab(tab) { setMode('user'); }
 
         function manualRefresh() {
             loadCategories();
@@ -761,7 +732,7 @@
             renderCategoriesBar();
             renderCatalog();
             renderAdminTable();
-            showToast("تم تحديث البيانات بنجاح!");
+            showToast("تم التحديث بنجاح!");
         }
 
         function renderCategoriesBar() {
@@ -771,7 +742,7 @@
                 const isActive = cat === currentFilter;
                 const activeClass = "bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-lg";
                 const inactiveClass = "text-gray-300 hover:bg-white/5 border border-white/5";
-                return `<button onclick="filterCategory('${cat}')" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${isActive ? activeClass : inactiveClass}">${cat}</button>`;
+                return `<button onclick="filterCategory('${cat}')" class="cat-btn px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${isActive ? activeClass : inactiveClass}">${cat}</button>`;
             }).join('');
         }
 
@@ -789,8 +760,8 @@
                 return `
                     <div class="flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1.5 rounded-xl text-xs text-white">
                         <span>${cat}</span>
-                        <button onclick="editCategoryName(${idx})" class="text-teal-400 hover:text-teal-300" title="تعديل الاسم"><i class="fa-solid fa-pen text-[10px]"></i></button>
-                        <button onclick="deleteCategory(${idx})" class="text-rose-400 hover:text-rose-300" title="حذف"><i class="fa-solid fa-trash text-[10px]"></i></button>
+                        <button onclick="editCategoryName(${idx})" class="text-teal-400 hover:text-teal-300"><i class="fa-solid fa-pen text-[10px]"></i></button>
+                        <button onclick="deleteCategory(${idx})" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash text-[10px]"></i></button>
                     </div>
                 `;
             }).join('');
@@ -806,14 +777,14 @@
             const nameInput = document.getElementById('new-category-name');
             const val = nameInput.value.trim();
             if (!val) { showToast("الرجاء كتابة اسم القائمة"); return; }
-            if (categories.includes(val)) { showToast("هذه القائمة موجودة بالفعل"); return; }
+            if (categories.includes(val)) { showToast("القائمة موجودة مسبقاً"); return; }
             categories.push(val);
             saveCategories();
             nameInput.value = '';
             renderCategoriesBar();
             renderAdminCategories();
             populateCategoryDropdown();
-            showToast("تمت إضافة القائمة بنجاح!");
+            showToast("تمت إضافة القائمة بنجاح");
         }
 
         function editCategoryName(idx) {
@@ -830,7 +801,7 @@
                 populateCategoryDropdown();
                 renderCatalog();
                 renderAdminTable();
-                showToast("تم تحديث اسم القائمة!");
+                showToast("تم تحديث اسم القائمة");
             }
         }
 
@@ -896,19 +867,19 @@
                     }
 
                     const card = document.createElement('div');
-                    card.className = "glass-card rounded-3xl overflow-hidden flex flex-col justify-between group";
+                    card.className = "glass-card rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col justify-between group";
                     card.innerHTML = `
                         <div>
-                            <div class="relative h-56 overflow-hidden bg-black/40 cursor-pointer flex items-center justify-center p-2" onclick="openModal('${p.id}')">
+                            <div class="relative h-52 sm:h-56 overflow-hidden bg-black/40 cursor-pointer flex items-center justify-center p-2" onclick="openModal('${p.id}')">
                                 <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/600x400/121620/ffffff?text=GLOW_HOME'" class="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-500">
                                 <div class="absolute top-3 right-3">
-                                    <span class="bg-black/40 backdrop-blur-md text-teal-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">متوفر: ${p.stock || 0} قطع</span>
+                                    <span class="bg-black/60 backdrop-blur-md text-teal-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-white/20">متوفر: ${p.stock || 0}</span>
                                 </div>
                             </div>
-                            <div class="p-5 space-y-2">
+                            <div class="p-4 sm:p-5 space-y-2">
                                 <div class="flex items-center justify-between">
-                                    <h3 class="font-bold text-white text-base group-hover:text-teal-300 transition-colors cursor-pointer" onclick="openModal('${p.id}')">${p.name}</h3>
-                                    <div class="flex items-center gap-1 text-amber-400 text-xs font-bold cursor-pointer" onclick="openModal('${p.id}')" title="اضغط لتقييم المنتج">
+                                    <h3 class="font-bold text-white text-sm sm:text-base group-hover:text-teal-300 transition-colors cursor-pointer" onclick="openModal('${p.id}')">${p.name}</h3>
+                                    <div class="flex items-center gap-1 text-amber-400 text-xs font-bold cursor-pointer" onclick="openModal('${p.id}')">
                                         <i class="fa-solid fa-star"></i>
                                         <span>${avgRating}</span>
                                     </div>
@@ -917,24 +888,24 @@
                                 ${dimsHtml}
                             </div>
                         </div>
-                        <div class="p-5 pt-0 space-y-3">
+                        <div class="p-4 sm:p-5 pt-0 space-y-3">
                             <div class="flex items-center justify-between border-t border-white/10 pt-3">
                                 <div class="flex items-center gap-2">
-                                    <span class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">${formatCurrency(p.price)}</span>
-                                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${badge.bg}">${badge.label}</span>
+                                    <span class="text-base sm:text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">${formatCurrency(p.price)}</span>
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-bold border ${badge.bg}">${badge.label}</span>
                                 </div>
-                                <div class="flex items-center gap-2 text-xs text-gray-400">
-                                    <button onclick="cardReaction(event, '${p.id}', 'like')" class="hover:text-teal-300 flex items-center gap-1">
-                                        <i class="fa-solid fa-thumbs-up ${p.userReaction === 'like' ? 'text-teal-400 drop-shadow-[0_0_8px_rgba(20,149,181,0.6)]' : 'text-teal-400/80'}"></i>
+                                <div class="flex items-center gap-2.5 text-xs text-gray-400">
+                                    <button onclick="cardReaction(event, '${p.id}', 'like')" class="p-1 hover:text-teal-300 flex items-center gap-1">
+                                        <i class="fa-solid fa-thumbs-up ${p.userReaction === 'like' ? 'text-teal-400 drop-shadow-[0_0_8px_rgba(20,149,181,0.6)]' : 'text-teal-400/80'} text-sm"></i>
                                         <span class="${p.userReaction === 'like' ? 'text-teal-300 font-bold' : ''}">${p.likes || 0}</span>
                                     </button>
-                                    <button onclick="cardReaction(event, '${p.id}', 'dislike')" class="hover:text-rose-300 flex items-center gap-1">
-                                        <i class="fa-solid fa-thumbs-down ${p.userReaction === 'dislike' ? 'text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]' : 'text-rose-400/80'}"></i>
+                                    <button onclick="cardReaction(event, '${p.id}', 'dislike')" class="p-1 hover:text-rose-300 flex items-center gap-1">
+                                        <i class="fa-solid fa-thumbs-down ${p.userReaction === 'dislike' ? 'text-rose-400 drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]' : 'text-rose-400/80'} text-sm"></i>
                                         <span class="${p.userReaction === 'dislike' ? 'text-rose-300 font-bold' : ''}">${p.dislikes || 0}</span>
                                     </button>
                                 </div>
                             </div>
-                            <button onclick="confirmOrder('${p.id}')" class="w-full py-2.5 rounded-xl font-bold text-white text-xs flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-brand-turquoise to-teal-600 hover:opacity-90 shadow-lg shadow-brand-turquoise/20">
+                            <button onclick="confirmOrder('${p.id}')" class="w-full py-3 rounded-xl font-bold text-white text-xs flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-brand-turquoise to-teal-600 shadow-lg active:scale-95">
                                 <i class="fa-brands fa-instagram text-base"></i>
                                 <span>اطلب الان</span>
                             </button>
@@ -949,15 +920,18 @@
             event.stopPropagation();
             const p = products.find(item => item.id === id);
             if (!p) return;
+            if (!p.likes) p.likes = 0;
+            if (!p.dislikes) p.dislikes = 0;
+
             if (p.userReaction === type) {
-                if (type === 'like') p.likes = Math.max(0, (p.likes || 1) - 1);
-                if (type === 'dislike') p.dislikes = Math.max(0, (p.dislikes || 1) - 1);
+                if (type === 'like') p.likes = Math.max(0, p.likes - 1);
+                if (type === 'dislike') p.dislikes = Math.max(0, p.dislikes - 1);
                 p.userReaction = null;
             } else {
-                if (p.userReaction === 'like') p.likes = Math.max(0, (p.likes || 1) - 1);
-                if (p.userReaction === 'dislike') p.dislikes = Math.max(0, (p.dislikes || 1) - 1);
-                if (type === 'like') p.likes = (p.likes || 0) + 1;
-                if (type === 'dislike') p.dislikes = (p.dislikes || 0) + 1;
+                if (p.userReaction === 'like') p.likes = Math.max(0, p.likes - 1);
+                if (p.userReaction === 'dislike') p.dislikes = Math.max(0, p.dislikes - 1);
+                if (type === 'like') p.likes += 1;
+                if (type === 'dislike') p.dislikes += 1;
                 p.userReaction = type;
             }
             saveDataToStorage();
@@ -982,10 +956,8 @@
             statusEl.innerText = badge.label;
             statusEl.className = `px-2.5 py-0.5 rounded-full text-[11px] font-bold border ${badge.bg}`;
 
-            // Dimensions separated in dark boxes
             const dimContainer = document.getElementById('modal-dimensions-container');
             let hasDims = false;
-
             const setDimBox = (elId, val, label) => {
                 const el = document.getElementById(elId);
                 if (val) {
@@ -1005,13 +977,10 @@
             if (!hasDims) dimContainer.classList.add('hidden');
             else dimContainer.classList.remove('hidden');
 
-            // Reactions count
             document.getElementById('modal-like-count').innerText = p.likes || 0;
             document.getElementById('modal-dislike-count').innerText = p.dislikes || 0;
 
-            // Rating Stars
             renderStarRating(p);
-
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
@@ -1022,7 +991,7 @@
             let html = '';
             for (let i = 1; i <= 5; i++) {
                 const active = i <= userRat;
-                html += `<i class="fa-solid fa-star cursor-pointer text-base transition-transform hover:scale-125 ${active ? 'text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]' : 'text-gray-600 hover:text-amber-300'}" onclick="rateProduct('${p.id}', ${i})" title="تقييم ${i} نجوم"></i>`;
+                html += `<i class="fa-solid fa-star cursor-pointer text-lg p-1 transition-transform hover:scale-125 ${active ? 'text-amber-400 drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]' : 'text-gray-600 hover:text-amber-300'}" onclick="rateProduct('${p.id}', ${i})"></i>`;
             }
             container.innerHTML = html;
         }
@@ -1036,7 +1005,7 @@
             saveDataToStorage();
             renderStarRating(p);
             renderCatalog();
-            showToast(`شكراً لك! تم تسجيل تقييمك بـ ${stars} نجمات`);
+            showToast(`شكراً لك! تم تقييم المنتج بـ ${stars} نجوم`);
         }
 
         function toggleReaction(type) {
@@ -1078,7 +1047,6 @@
         function executeOrderAndRedirect() {
             if (!currentOrderingProduct) return;
             const p = currentOrderingProduct;
-            
             const message = `مرحباً متجر كلو هوم 👋\nأرغب في طلب المنتج التالي:\n\n🛍️ اسم المنتج: ${p.name}\n💰 السعر: ${formatCurrency(p.price)}`;
             
             const tempTextArea = document.createElement("textarea");
@@ -1089,8 +1057,7 @@
             document.body.removeChild(tempTextArea);
             
             closeOrderConfirmModal();
-            showToast("تم نسخ تفاصيل الطلب للحافظة! جاري التوجيه إلى إنستغرام...");
-            
+            showToast("تم نسخ الطلب! جاري التوجيه للإنستغرام...");
             window.open(INSTAGRAM_FULL_URL, '_blank');
         }
 
@@ -1113,7 +1080,7 @@
         function clearImageSelection() {
             document.getElementById('prod-image-data').value = '';
             document.getElementById('prod-image-file').value = '';
-            document.getElementById('image-upload-label').innerText = "اختر صورة من جهازك...";
+            document.getElementById('image-upload-label').innerText = "اختر صورة...";
             document.getElementById('image-preview-container').classList.add('hidden');
         }
 
@@ -1125,15 +1092,9 @@
                 let width = img.width;
                 let height = img.height;
                 if (width > height) {
-                    if (width > maxWidth) {
-                        height *= maxWidth / width;
-                        width = maxWidth;
-                    }
+                    if (width > maxWidth) { height *= maxWidth / width; width = maxWidth; }
                 } else {
-                    if (height > maxHeight) {
-                        width *= maxHeight / height;
-                        height = maxHeight;
-                    }
+                    if (height > maxHeight) { width *= maxHeight / height; height = maxHeight; }
                 }
                 canvas.width = width;
                 canvas.height = height;
@@ -1158,25 +1119,17 @@
             const desc = document.getElementById('prod-desc').value.trim();
             let imageData = document.getElementById('prod-image-data').value;
 
-            if (!editId && !imageData) {
-                showToast("الرجاء اختيار صورة للمنتج الجديد");
-                return;
-            }
-
+            if (!editId && !imageData) { showToast("الرجاء اختيار صورة للمنتج"); return; }
             if (editId && !imageData) {
                 const existing = products.find(p => p.id === editId);
                 if (existing) imageData = existing.image;
             }
 
-            showConfirm("تأكيد الحفظ", editId ? "هل تريد حفظ التعديلات على هذا المنتج؟" : "هل تريد إضافة هذا المنتج الجديد إلى الكتالوج؟", function() {
+            showConfirm("تأكيد الحفظ", editId ? "حفظ التعديلات على المنتج؟" : "إضافة المنتج الجديد للكتالوج؟", function() {
                 if (editId) {
                     const idx = products.findIndex(p => p.id === editId);
                     if (idx !== -1) {
-                        products[idx] = {
-                            ...products[idx],
-                            name, category, price, stock, badge, height, width, diameter, depth,
-                            image: imageData, description: desc
-                        };
+                        products[idx] = { ...products[idx], name, category, price, stock, badge, height, width, diameter, depth, image: imageData, description: desc };
                     }
                     showToast("تم تحديث المنتج بنجاح!");
                 } else {
@@ -1189,7 +1142,6 @@
                     products.unshift(newProd);
                     showToast("تمت إضافة المنتج بنجاح!");
                 }
-
                 saveDataToStorage();
                 resetForm();
                 renderAdminTable();
@@ -1205,24 +1157,20 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-white/5 transition-colors";
                 tr.innerHTML = `
-                    <td class="p-3 flex items-center gap-3">
-                        <img src="${p.image}" class="w-10 h-10 rounded-xl object-cover border border-white/10" onerror="this.src='https://placehold.co/100x100'">
+                    <td class="p-3 flex items-center gap-2.5">
+                        <img src="${p.image}" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl object-cover border border-white/10 shrink-0" onerror="this.src='https://placehold.co/100x100'">
                         <div>
-                            <span class="font-bold text-white block">${p.name}</span>
-                            <span class="text-[10px] text-gray-400">${p.id}</span>
+                            <span class="font-bold text-white block truncate max-w-[120px] sm:max-w-xs">${p.name}</span>
+                            <span class="text-[9px] text-gray-400">${p.id}</span>
                         </div>
                     </td>
-                    <td class="p-3 text-teal-300 font-semibold">${p.category}</td>
-                    <td class="p-3 font-bold text-purple-300">${formatCurrency(p.price)}</td>
+                    <td class="p-3 text-teal-300 font-semibold whitespace-nowrap">${p.category}</td>
+                    <td class="p-3 font-bold text-purple-300 whitespace-nowrap">${formatCurrency(p.price)}</td>
                     <td class="p-3 text-gray-300 font-bold">${p.stock || 0}</td>
-                    <td class="p-3 text-center">
-                        <div class="flex items-center justify-center gap-2">
-                            <button onclick="editProduct('${p.id}')" class="p-2 rounded-xl bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 border border-teal-500/30 transition-all" title="تعديل">
-                                <i class="fa-solid fa-pen text-xs"></i>
-                            </button>
-                            <button onclick="deleteProduct('${p.id}')" class="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30 transition-all" title="حذف">
-                                <i class="fa-solid fa-trash text-xs"></i>
-                            </button>
+                    <td class="p-3 text-center whitespace-nowrap">
+                        <div class="flex items-center justify-center gap-1.5">
+                            <button onclick="editProduct('${p.id}')" class="p-2 rounded-xl bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 border border-teal-500/30"><i class="fa-solid fa-pen text-xs"></i></button>
+                            <button onclick="deleteProduct('${p.id}')" class="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 border border-red-500/30"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                     </td>
                 `;
@@ -1245,7 +1193,7 @@
             document.getElementById('prod-depth').value = p.depth || '';
             document.getElementById('prod-desc').value = p.description;
             document.getElementById('prod-image-data').value = p.image;
-            document.getElementById('image-upload-label').innerText = "تم الاحتفاظ بالصورة الحالية ✓";
+            document.getElementById('image-upload-label').innerText = "الصورة الحالية محفوظة ✓";
             document.getElementById('image-preview-img').src = p.image;
             document.getElementById('image-preview-container').classList.remove('hidden');
 
@@ -1256,7 +1204,7 @@
         }
 
         function deleteProduct(id) {
-            showConfirm("تأكيد الحذف", "هل أنت متأكد من حذف هذا المنتج من الكتالوج نهائياً؟", function() {
+            showConfirm("تأكيد الحذف", "هل تريد حذف هذا المنتج من الكتالوج؟", function() {
                 products = products.filter(p => p.id !== id);
                 saveDataToStorage();
                 renderAdminTable();
@@ -1269,7 +1217,7 @@
             document.getElementById('product-form').reset();
             document.getElementById('edit-product-id').value = '';
             document.getElementById('prod-image-data').value = '';
-            document.getElementById('image-upload-label').innerText = "اختر صورة من جهازك...";
+            document.getElementById('image-upload-label').innerText = "اختر صورة...";
             document.getElementById('image-preview-container').classList.add('hidden');
             document.getElementById('form-title').innerText = "إضافة منتج جديد";
             document.getElementById('submit-btn').innerHTML = '<i class="fa-solid fa-save"></i><span>حفظ المنتج</span>';
@@ -1277,7 +1225,7 @@
         }
 
         function confirmResetDefaults() {
-            showConfirm("استعادة الافتراضي", "هل تريد إعادة تعيين كافة البيانات واستعادة الإعدادات الأصلية والشعار الافتراضي للمتجر؟", function() {
+            showConfirm("استعادة الافتراضي", "هل تريد إعادة تعيين البيانات واستعادة الإعدادات الأصلية والشعار الافتراضي؟", function() {
                 localStorage.removeItem(STORAGE_KEY);
                 localStorage.removeItem(CATEGORIES_STORAGE_KEY);
                 localStorage.removeItem(LOGO_STORAGE_KEY);
@@ -1291,7 +1239,7 @@
                 populateCategoryDropdown();
                 renderAdminTable();
                 renderCatalog();
-                showToast("تمت استعادة الإعدادات الافتراضية بنجاح");
+                showToast("تمت الاستعادة بنجاح");
             });
         }
 
@@ -1320,9 +1268,7 @@
             const toast = document.getElementById('toast');
             document.getElementById('toast-msg').innerText = msg;
             toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3500);
+            setTimeout(() => { toast.classList.add('hidden'); }, 3500);
         }
     </script>
 </body>
