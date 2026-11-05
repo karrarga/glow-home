@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOW_HOME | الكتالوج الرقمي الفاخر</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            turquoise: '#0d6b82',
+                            'turquoise-light': '#1495b5',
+                            violet: '#4a154b',
+                            'violet-light': '#7a227c',
+                            dark: '#0a0c10',
+                            card: '#121620',
+                            border: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #0a0c10;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(13, 107, 130, 0.25) 0%, transparent 45%),
+                radial-gradient(circle at 85% 75%, rgba(74, 21, 75, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(10, 12, 16, 0.8) 0%, transparent 100%);
+            background-attachment: fixed;
+            color: #e2e8f0;
+            min-height: 100vh;
+        }
+
+        .glass-panel {
+            background: rgba(18, 22, 32, 0.7);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.45);
+        }
+
+        .glass-card {
+            background: rgba(22, 27, 38, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            border-color: rgba(13, 107, 130, 0.6);
+            box-shadow: 0 16px 35px -10px rgba(13, 107, 130, 0.45), 0 0 25px 0 rgba(74, 21, 75, 0.35);
+            transform: translateY(-6px);
+        }
+
+        .glass-input {
+            background: rgba(10, 12, 16, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            border-color: #1495b5;
+            box-shadow: 0 0 15px rgba(20, 149, 181, 0.35);
+            outline: none;
+        }
+
+        .btn-gradient {
+            background: linear-gradient(135deg, #0d6b82 0%, #4a154b 100%);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg, #1495b5 0%, #7a227c 100%);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-gradient:hover::before {
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0c10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e2638;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0d6b82;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-brand-turquoise selection:text-white">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-brand-border px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+            
+            <!-- Logo & Brand Name -->
+            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('catalog')">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-brand-turquoise to-brand-violet flex items-center justify-center p-0.5 shadow-lg shadow-brand-turquoise/20 overflow-hidden shrink-0">
+                    <div id="header-logo-container" class="w-full h-full bg-brand-dark rounded-full flex items-center justify-center overflow-hidden">
+                        <img id="custom-header-logo" src="" alt="GLOW_HOME Logo" class="w-full h-full object-cover">
+                    </div>
+                </div>
+                <div>
+                    <h1 class="font-tajawal font-black text-2xl tracking-wider text-white flex items-center gap-1.5" style="direction: ltr; unicode-bidi: isolate; text-align: right;">
+                        <span style="direction: ltr; display: inline-block;">GLOW</span><span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400" style="direction: ltr; display: inline-block;">_HOME</span>
+                    </h1>
+                    <p class="text-[10px] text-teal-300 font-semibold tracking-wide -mt-1 text-right">للأدوات المنزلية والمطبخ</p>
+                </div>
+            </div>
+
+            <!-- Header Action Buttons -->
+            <div class="flex items-center gap-3">
+                <a id="header-instagram-link" href="https://www.instagram.com/0_glow.home?dlrf=MTdmd3Q1OGZpbnU0YQ==" target="_blank" 
+                   class="hidden sm:flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-pink-500/10 text-pink-400 border border-pink-500/30 hover:bg-pink-500/20 transition-all">
+                    <i class="fa-brands fa-instagram text-sm"></i>
+                    <span>إنستغرام المتجر</span>
+                </a>
+
+                <button onclick="manualRefresh()" title="تحديث الكتالوج" class="p-2 rounded-xl bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 border border-teal-500/30 transition-all">
+                    <i class="fa-solid fa-rotate text-xs"></i>
+                </button>
+
+                <!-- Mode Switcher -->
+                <div class="bg-black/40 p-1 rounded-xl border border-white/10 flex items-center text-xs font-bold">
+                    <button id="btn-user-view" onclick="setMode('user')" 
+                            class="px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md">
+                        <i class="fa-solid fa-store"></i>
+                        <span>الزبون</span>
+                    </button>
+                    <button id="btn-admin-view" onclick="checkAdminAccess()" 
+                            class="px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1.5">
+                        <i class="fa-solid fa-user-gear"></i>
+                        <span>الإدارة</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative py-10 px-4 max-w-7xl mx-auto w-full">
+        <div class="glass-panel rounded-3xl p-6 md:p-12 relative overflow-hidden border border-white/10">
+            <div class="absolute -top-16 -right-16 w-56 h-56 bg-brand-turquoise/25 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-16 -left-16 w-56 h-56 bg-brand-violet/35 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-center md:text-right space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-brand-turquoise/20 text-teal-300 border border-brand-turquoise/40 shadow-inner">
+                        <i class="fa-solid fa-gem text-amber-400 text-xs"></i>
+                        <span>أحدث تشكيلة أدوات منزلية وديكور راقية</span>
+                    </div>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white leading-tight">
+                        اجعل منزلك ومطبخك يتألق<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 via-purple-300 to-purple-500">بفخامة منتجات كلو هوم</span>
+                    </h2>
+                    <p class="text-gray-300 text-xs md:text-sm leading-relaxed">
+                        تصفح مجموعتنا الحصرية المجهزة بأعلى معايير الجمال والذوق الرفيع. اطلب قطعك المفضلة الآن بضغطة زر واحدة.
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-4 bg-black/40 p-5 rounded-2xl border border-white/10 backdrop-blur-md shadow-xl">
+                    <div class="text-center px-4 border-l border-white/10">
+                        <span class="block text-2xl font-black text-teal-400" id="total-products-count">1</span>
+                        <span class="text-[11px] text-gray-400 font-medium">منتج معروض</span>
+                    </div>
+                    <div class="text-center px-2">
+                        <span class="block text-2xl font-black text-purple-400">100%</span>
+                        <span class="text-[11px] text-gray-400 font-medium">ضمان الجودة</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 pb-16">
+
+        <!-- ==================== CUSTOMER VIEW ==================== -->
+        <div id="view-customer" class="space-y-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 glass-panel p-4 rounded-2xl">
+                <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-none" id="categories-container">
+                    <!-- Categories rendered dynamically -->
+                </div>
+
+                <div class="relative w-full md:w-72">
+                    <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    <input type="text" id="search-input" onkeyup="renderCatalog()" placeholder="ابحث عن منتج في الكتالوج..." 
+                           class="w-full glass-input pr-10 pl-3 py-2.5 rounded-xl text-xs">
+                </div>
+            </div>
+
+            <div id="catalog-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
+
+            <div id="empty-catalog-msg" class="hidden text-center py-20 glass-panel rounded-3xl border border-white/10">
+                <i class="fa-solid fa-box-open text-5xl text-gray-500 mb-4"></i>
+                <h3 class="text-lg font-bold text-gray-300">لا توجد منتجات مطابقة لبحثك</h3>
+                <p class="text-xs text-gray-400 mt-1">جرّب البحث باسم آخر أو اختر تصنيفاً مختلفاً</p>
+            </div>
+        </div>
+
+        <!-- ==================== ADMIN VIEW ==================== -->
+        <div id="view-admin" class="hidden space-y-8">
+            <div class="flex items-center justify-between glass-panel p-6 rounded-2xl border-l-4 border-l-brand-violet">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-purple-400"></i>
+                        <span>لوحة تحكم إدارة متجر GLOW_HOME</span>
+                    </h2>
+                    <p class="text-xs text-gray-400 mt-1">إدارة المنتجات، التصنيفات، الشعار، ورابط انستغرام، والتحكم الشامل ببيانات المتجر.</p>
+                </div>
+                <button onclick="confirmResetDefaults()" class="px-3.5 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs border border-red-500/30 transition-all flex items-center gap-1.5">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>استعادة الافتراضي</span>
+                </button>
+            </div>
+
+            <!-- Settings & Logo Management -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Logo Management -->
+                <div class="glass-panel p-6 rounded-3xl border border-white/10 flex flex-col justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-16 h-16 rounded-2xl bg-black/50 border border-white/10 flex items-center justify-center overflow-hidden p-1 shadow-md shrink-0">
+                            <img id="admin-logo-preview-img" src="" alt="Logo Preview" class="w-full h-full object-cover rounded-xl">
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+                                <span>شعار المتجر الرسمي</span>
+                            </h4>
+                            <p class="text-xs text-gray-400 mt-0.5">رفع شعار جديد للهيدر</p>
+                        </div>
+                    </div>
+                    <label class="cursor-pointer w-full py-2.5 rounded-xl bg-gradient-to-r from-brand-turquoise to-teal-600 text-white text-xs font-bold hover:opacity-95 transition-all flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-upload"></i>
+                        <span>رفع شعار جديد</span>
+                        <input type="file" id="admin-logo-file" accept="image/*" class="hidden" onchange="handleAdminLogoSelect(event)">
+                    </label>
+                </div>
+
+                <!-- Instagram Link Management -->
+                <div class="glass-panel p-6 rounded-3xl border border-white/10 flex flex-col justify-between gap-4">
+                    <div>
+                        <h4 class="text-sm font-bold text-white flex items-center gap-2 mb-1">
+                            <i class="fa-brands fa-instagram text-pink-400"></i>
+                            <span>رابط حساب انستغرام للطلبات</span>
+                        </h4>
+                        <p class="text-xs text-gray-400">ضع الرابط المباشر لحسابك أو لصفحة الرسائل (DM)</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="admin-instagram-url-input" placeholder="https://instagram.com/..." class="w-full glass-input p-2.5 rounded-xl text-xs">
+                        <button onclick="saveInstagramUrl()" class="px-4 py-2.5 rounded-xl bg-teal-500 text-gray-950 font-bold text-xs hover:bg-teal-400 shadow-md whitespace-nowrap">حفظ</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Management Section -->
+            <div class="glass-panel p-6 rounded-3xl border border-white/10 space-y-4">
+                <h3 class="text-base font-bold text-white flex items-center gap-2 border-b border-white/10 pb-3">
+                    <i class="fa-solid fa-tags text-teal-400"></i>
+                    <span>إدارة قوائم وتصنيفات المنتجات</span>
+                </h3>
+                <div class="flex flex-col sm:flex-row items-center gap-3">
+                    <input type="text" id="new-category-input" placeholder="اسم التصنيف الجديد (مثال: إكسسوارات مطبخ)..." class="w-full glass-input p-2.5 rounded-xl text-xs">
+                    <button onclick="addNewCategory()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-teal-500 text-gray-950 font-bold text-xs hover:bg-teal-400 shadow-md whitespace-nowrap">إضافة تصنيف جديد</button>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 pt-2" id="admin-categories-list"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Form -->
+                <div class="lg:col-span-1 glass-panel p-6 rounded-3xl h-fit border border-white/10">
+                    <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2 border-b border-white/10 pb-3">
+                        <i class="fa-solid fa-plus-circle text-teal-400"></i>
+                        <span id="form-title">إضافة منتج جديد</span>
+                    </h3>
+
+                    <form id="product-form" onsubmit="prepareFormSubmit(event)" class="space-y-4">
+                        <input type="hidden" id="edit-product-id">
+                        <input type="hidden" id="prod-image-data">
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">اسم المنتج *</label>
+                            <input type="text" id="prod-name" required placeholder="مثال: فازة بابلز أنيقة" class="w-full glass-input p-2.5 rounded-xl text-xs">
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">الفئة *</label>
+                                <select id="prod-category" required class="w-full glass-input p-2.5 rounded-xl text-xs bg-brand-dark">
+                                    <!-- Populated dynamically -->
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gray-300 mb-1">السعر (د.ع) *</label>
+                                <input type="number" id="prod-price" required placeholder="19000" class="w-full glass-input p-2.5 rounded-xl text-xs">
+                            </div>
+                        </div>
+
+                        <!-- Dimensions Inputs -->
+                        <div class="bg-black/30 p-3 rounded-2xl border border-white/10 space-y-2.5">
+                            <label class="block text-xs font-bold text-teal-400">📐 القياسات الدقيقة (بالسنتمتر):</label>
+                            <div class="grid grid-cols-2 gap-2">
+                                <div>
+                                    <label class="block text-[10px] text-gray-400 mb-1">الطول (سم)</label>
+                                    <input type="text" id="prod-len" placeholder="مثال: 15" class="w-full glass-input p-2 rounded-xl text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-gray-400 mb-1">العرض (سم)</label>
+                                    <input type="text" id="prod-wid" placeholder="مثال: 15" class="w-full glass-input p-2 rounded-xl text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-gray-400 mb-1">الارتفاع (سم)</label>
+                                    <input type="text" id="prod-hei" placeholder="مثال: 13" class="w-full glass-input p-2 rounded-xl text-xs">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] text-gray-400 mb-1">القطر (سم)</label>
+                                    <input type="text" id="prod-dia" placeholder="مثال: 12" class="w-full glass-input p-2 rounded-xl text-xs">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">صورة المنتج *</label>
+                            <div class="flex flex-col gap-2">
+                                <label class="cursor-pointer glass-input p-3 rounded-xl flex items-center justify-center gap-2 text-xs font-medium hover:border-teal-400 transition-all">
+                                    <i class="fa-solid fa-image text-teal-400 text-sm"></i>
+                                    <span id="image-upload-label">اختر صورة من جهازك...</span>
+                                    <input type="file" id="prod-image-file" accept="image/*" class="hidden" onchange="handleImageFileSelect(event)">
+                                </label>
+                                <div id="image-preview-container" class="hidden relative rounded-xl overflow-hidden border border-white/10 h-32 bg-black/40">
+                                    <img id="image-preview-img" src="" class="w-full h-full object-cover">
+                                    <button type="button" onclick="clearImageSelection()" class="absolute top-2 left-2 bg-black/60 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-300 mb-1">الوصف التفصيلي *</label>
+                            <textarea id="prod-desc" rows="3" required placeholder="اكتب تفاصيل الجودة والتصميم..." class="w-full glass-input p-2.5 rounded-xl text-xs"></textarea>
+                        </div>
+
+                        <div class="flex items-center gap-2 pt-2">
+                            <button type="submit" id="submit-btn" class="flex-1 btn-gradient py-3 rounded-xl text-xs font-bold text-white shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-save"></i>
+                                <span>حفظ المنتج</span>
+                            </button>
+                            <button type="button" id="cancel-edit-btn" onclick="resetForm()" class="hidden px-4 py-3 rounded-xl bg-gray-700/50 text-gray-300 text-xs font-semibold hover:bg-gray-700">إلغاء</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Products Table -->
+                <div class="lg:col-span-2 glass-panel p-6 rounded-3xl border border-white/10">
+                    <h3 class="text-base font-bold text-white mb-4 flex items-center justify-between border-b border-white/10 pb-3">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-boxes-stacked text-purple-400"></i>
+                            <span>إدارة المخزون والمنتجات الحالية</span>
+                        </span>
+                        <span class="text-xs bg-brand-turquoise/20 text-teal-300 px-3 py-1 rounded-full border border-brand-turquoise/30 font-bold" id="admin-count-badge">0 منتجات</span>
+                    </h3>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-right text-xs">
+                            <thead class="bg-black/40 text-gray-400 border-b border-white/10">
+                                <tr>
+                                    <th class="p-3">المنتج</th>
+                                    <th class="p-3">الفئة</th>
+                                    <th class="p-3">السعر</th>
+                                    <th class="p-3">القياسات</th>
+                                    <th class="p-3 text-center">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body" class="divide-y divide-white/5"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PASSWORD LOGIN MODAL -->
+    <div id="password-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-sm p-6 rounded-3xl border border-white/20 shadow-2xl space-y-5 text-center relative">
+            <button onclick="closePasswordModal()" class="absolute top-4 left-4 text-gray-400 hover:text-white">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-14 h-14 bg-brand-turquoise/20 text-teal-400 rounded-2xl flex items-center justify-center mx-auto border border-brand-turquoise/30 shadow-lg">
+                <i class="fa-solid fa-lock text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-white">تسجيل دخول لوحة التحكم</h3>
+                <p class="text-xs text-gray-400 mt-1">الرجاء إدخال كلمة المرور للمتابعة</p>
+            </div>
+            <form onsubmit="verifyPassword(event)" class="space-y-4">
+                <input type="password" id="admin-pass-input" required placeholder="كلمة المرور" class="w-full glass-input p-3 rounded-xl text-center text-sm font-bold tracking-widest">
+                <button type="submit" class="w-full btn-gradient py-3 rounded-xl text-xs font-bold text-white shadow-lg">دخول</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-2xl rounded-3xl overflow-hidden border border-white/20 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 left-4 z-10 w-9 h-9 rounded-full bg-black/60 text-gray-300 hover:text-white flex items-center justify-center backdrop-blur-sm border border-white/10">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="relative h-64 md:h-full min-h-[260px] bg-black/40">
+                    <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                </div>
+
+                <div class="p-6 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span id="modal-category" class="text-[11px] font-bold text-teal-400 uppercase tracking-wider"></span>
+                        <h3 id="modal-title" class="text-xl font-black text-white mt-1"></h3>
+                        
+                        <!-- Modal Dimensions Display -->
+                        <div class="mt-3 bg-white/5 p-2.5 rounded-2xl border border-white/10 grid grid-cols-2 gap-2 text-xs text-gray-300" id="modal-dimensions"></div>
+                        
+                        <p id="modal-desc" class="text-xs text-gray-300 mt-3 leading-relaxed"></p>
+                    </div>
+
+                    <div class="pt-4 border-t border-white/10 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-gray-400">السعر الإجمالي:</span>
+                            <span id="modal-price" class="text-xl font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400"></span>
+                        </div>
+                        <a id="modal-instagram-btn" href="#" target="_blank" 
+                           class="w-full py-3.5 rounded-2xl font-bold text-white text-xs flex items-center justify-center gap-2 shadow-lg bg-gradient-to-r from-brand-turquoise to-teal-600 hover:opacity-95">
+                            <i class="fa-brands fa-instagram text-lg"></i>
+                            <span>اطلبه الان</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirm-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+        <div class="glass-panel w-full max-w-md p-6 rounded-3xl border border-white/20 shadow-2xl space-y-5 text-center">
+            <div class="w-14 h-14 bg-brand-turquoise/20 text-teal-400 rounded-2xl flex items-center justify-center mx-auto border border-brand-turquoise/30">
+                <i class="fa-solid fa-circle-question text-2xl"></i>
+            </div>
+            <div>
+                <h3 id="confirm-title" class="text-lg font-bold text-white">تأكيد الإجراء</h3>
+                <p id="confirm-msg" class="text-xs text-gray-300 mt-2 leading-relaxed">هل تريد الاستمرار؟</p>
+            </div>
+            <div class="flex items-center gap-3 pt-2">
+                <button id="confirm-ok-btn" class="flex-1 btn-gradient py-2.5 rounded-xl text-xs font-bold text-white shadow-lg">تأكيد</button>
+                <button onclick="closeConfirmModal()" class="flex-1 py-2.5 rounded-xl bg-gray-800 text-gray-300 text-xs font-semibold hover:bg-gray-700 border border-white/10">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed bottom-5 left-5 z-50 hidden glass-panel px-5 py-3.5 rounded-2xl border border-teal-500/40 shadow-2xl flex items-center gap-3">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toast-msg" class="text-xs font-bold text-white">تمت العملية بنجاح!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto border-t border-white/10 glass-panel py-6 text-center text-xs text-gray-400">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p>© 2026 متجر <span class="text-teal-400 font-bold">GLOW_HOME</span> - جميع الحقوق محفوظة</p>
+            <div class="flex items-center gap-4">
+                <a href="https://instagram.com/glow_home" target="_blank" class="hover:text-pink-400 transition-colors flex items-center gap-1">
+                    <i class="fa-brands fa-instagram"></i> إنستغرام المتجر
+                </a>
+                <span class="text-gray-600">|</span>
+                <span class="text-gray-400">العراق (د.ع)</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        const STORAGE_KEY = "GLOW_HOME_PRODUCTS_DATA_V12";
+        const CATEGORIES_STORAGE_KEY = "GLOW_HOME_CATEGORIES_KEY_V1";
+        const LOGO_STORAGE_KEY = "GLOW_HOME_CUSTOM_LOGO_KEY";
+        const INSTAGRAM_URL_KEY = "GLOW_HOME_INSTAGRAM_URL_KEY";
+        const ADMIN_PASS = "glow2024";
+
+        let isAdminAuthenticated = false;
+        let products = [];
+        let categories = ["أدوات المطبخ", "الزينة والديكور"];
+        let currentFilter = 'all';
+        let userInteractions = {}; 
+        let storeInstagramUrl = "https://www.instagram.com/0_glow.home?dlrf=MTdmd3Q1OGZpbnU0YQ==";
+
+        const DEFAULT_STORE_LOGO = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QBaRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAAExAAIAAAARAAAATgEyAAIAAAAUAAAAVIdpAAQAAAABAAAAWgAAASAACAAIAAhGb3RvIDIwMjYtMDgtMDYgMTUtNDYtMTkuanBnAAAnAAAAAQAAACcAAAABQVMtUEMAAABMYXlvdXQgMjA2AAAwLjAzIDAzOjA1OjAyIDIwMjY6MDggMDYgMTU6NDY6MTkgAAADqQAAOwAAAE0AAABPAAAAAQAAAGV5ZXByaW50ZXIoYykgVGVhbSBBlldigYAAAAAQAAAAEAAAABAAAAAQAAAH4AAAAEAAAAAQAAAE0AAABwAAAABAAAAAIAAAABAAAAAQAAAH4AAAAEAAAAAQAAAFQAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAFQAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAGkAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAGkAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAHAAAAACAAAAAQAAAHIAAAAIAAAAAQAAACcAAAABAAAALAAAACIAAAABAAAAEAAAACMAAAABAAAALAAAACQAAAABAAAAWAAAACUAAAABAAAAWAAAACYAAAABAAAAaAAAACcAAAABAAAAaAAAACgAAAABAAAAeAAAACkAAAABAAAAeAAAACoAAAABAAAAkAAAACsAAAABAAAAkAAAACwAAAABAAAApAAAAC0AAAABAAAApAAAAC1AAAABAAAAuAAAAC2AAAABAAAAuAAAAC3AAAABAAAAyAAAAC4AAAABAAAAyAAAAC5AAAABAAAA0AAAAC6AAAABAAAA0AAAAC7AAAABAAAA4AAAAC8AAAABAAAA4AAAAC9AAAABAAAA8AAAAC+/9sAQwAHBwcGBQQHBgjJCQgICA3RDwoKDl882d32n6bnYn2CgLc1u3Y8Wjfnl7a4n/2t2r82n7//v7/y42P8a+ub////2gAIAQEAAD8A0P8A//9k=";
+
+        const initialProducts = [
+            {
+                id: "glow_01",
+                name: "فازة بابلز أنيقة",
+                category: "الزينة والديكور",
+                price: 19000,
+                dimensions: { length: "15", width: "15", height: "13", diameter: "12" },
+                likes: 14,
+                dislikes: 1,
+                userRating: 5,
+                image: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD/4QBaRXhpZgAATU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAAExAAIAAAARAAAATgEyAAIAAAAUAAAAVIdpAAQAAAABAAAAWgAAASAACAAIAAhGb3RvIDIwMjYtMDgtMDYgMTUtNDYtMTkuanBnAAAnAAAAAQAAACcAAAABQVMtUEMAAABMYXlvdXQgMjA2AAAwLjAzIDAzOjA1OjAyIDIwMjY6MDggMDYgMTU6NDY6MTkgAAADqQAAOwAAAE0AAABPAAAAAQAAAGV5ZXByaW50ZXIoYykgVGVhbSBBlldigYAAAAAQAAAAEAAAABAAAAAQAAAH4AAAAEAAAAAQAAAE0AAABwAAAABAAAAAIAAAABAAAAAQAAAH4AAAAEAAAAAQAAAFQAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAFQAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAGkAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAGkAAABwAAAABAAAAPgAAAH4AAAAEAAAAAQAAAHAAAAACAAAAAQAAAHIAAAAIAAAAAQAAACcAAAABAAAALAAAACIAAAABAAAAEAAAACMAAAABAAAALAAAACQAAAABAAAAWAAAACUAAAABAAAAWAAAACYAAAABAAAAaAAAACcAAAABAAAAaAAAACgAAAABAAAAeAAAACkAAAABAAAAeAAAACoAAAABAAAAkAAAACsAAAABAAAAkAAAACwAAAABAAAApAAAAC0AAAABAAAApAAAAC1AAAABAAAAuAAAAC2AAAABAAAAuAAAAC3AAAABAAAAyAAAAC4AAAABAAAAyAAAAC5AAAABAAAA0AAAAC6AAAABAAAA0AAAAC7AAAABAAAA4AAAAC8AAAABAAAA4AAAAC9AAAABAAAA8AAAAC+/9sAQwAHBwcGBQQHBgjJCQgICA3RDwoKDl882d32n6bnYn2CgLc1u3Y8Wjfnl7a4n/2t2r82n7//v7/y42P8a+ub////2gAIAQEAAD8A0P8A//9k=",
+                description: "متين وجودة عالية، سطح أملس سهل التنظيف، تصميم أنيق مع تنسيق ورود متناسقة (تريكواز وبنفسجي)."
+            }
+        ];
+
+        window.onload = function() {
+            loadData();
+            loadStoreConfig();
+            renderCategoriesBar();
+            renderAdminCategoriesList();
+            renderCategorySelectOptions();
+            renderCatalog();
+            renderAdminTable();
+        };
+
+        function loadData() {
+            const savedCats = localStorage.getItem(CATEGORIES_STORAGE_KEY);
+            if (savedCats) {
+                try { categories = JSON.parse(savedCats); } catch(e){}
+            }
+
+            const saved = localStorage.getItem(STORAGE_KEY);
+            const savedInteractions = localStorage.getItem(STORAGE_KEY + "_interactions");
+            if (savedInteractions) {
+                try { userInteractions = JSON.parse(savedInteractions); } catch(e){}
+            }
+            if (saved) {
+                try {
+                    products = JSON.parse(saved);
+                } catch (e) {
+                    products = initialProducts;
+                }
+            } else {
+                products = initialProducts;
+                saveDataToStorage();
+            }
+            updateCounts();
+        }
+
+        function saveDataToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+            localStorage.setItem(CATEGORIES_STORAGE_KEY, JSON.stringify(categories));
+            localStorage.setItem(STORAGE_KEY + "_interactions", JSON.stringify(userInteractions));
+            updateCounts();
+        }
+
+        function loadStoreConfig() {
+            const customLogo = localStorage.getItem(LOGO_STORAGE_KEY) || DEFAULT_STORE_LOGO;
+            const headerLogo = document.getElementById('custom-header-logo');
+            if (headerLogo) {
+                headerLogo.src = customLogo;
+                headerLogo.classList.remove('hidden');
+            }
+            const adminImg = document.getElementById('admin-logo-preview-img');
+            if (adminImg) {
+                adminImg.src = customLogo;
+                adminImg.classList.remove('hidden');
+            }
+
+            const savedIgUrl = localStorage.getItem(INSTAGRAM_URL_KEY);
+            if (savedIgUrl) {
+                storeInstagramUrl = savedIgUrl;
+            }
+            const igInputEl = document.getElementById('admin-instagram-url-input');
+            if (igInputEl) {
+                igInputEl.value = storeInstagramUrl;
+            }
+        }
+
+        function renderCategoriesBar() {
+            const container = document.getElementById('categories-container');
+            container.innerHTML = `
+                <button onclick="filterCategory('all')" class="cat-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${currentFilter === 'all' ? 'bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-lg' : 'text-gray-300 hover:bg-white/5 border border-white/5'}">الكل</button>
+            `;
+            categories.forEach(cat => {
+                const isActive = (currentFilter === cat);
+                const btn = document.createElement('button');
+                btn.className = `cat-btn px-5 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${isActive ? 'bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-lg' : 'text-gray-300 hover:bg-white/5 border border-white/5'}`;
+                btn.innerText = cat;
+                btn.onclick = () => filterCategory(cat);
+                container.appendChild(btn);
+            });
+        }
+
+        function renderCategorySelectOptions() {
+            const select = document.getElementById('prod-category');
+            if (!select) return;
+            select.innerHTML = '';
+            categories.forEach(cat => {
+                const opt = document.createElement('option');
+                opt.value = cat;
+                opt.innerText = cat;
+                select.appendChild(opt);
+            });
+        }
+
+        function renderAdminCategoriesList() {
+            const listContainer = document.getElementById('admin-categories-list');
+            if (!listContainer) return;
+            listContainer.innerHTML = '';
+            categories.forEach((cat, index) => {
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between bg-black/40 p-2.5 rounded-xl border border-white/10";
+                div.innerHTML = `
+                    <input type="text" id="cat-edit-${index}" value="${cat}" class="glass-input px-2.5 py-1 rounded-lg text-xs w-full ml-2">
+                    <div class="flex items-center gap-1.5 shrink-0">
+                        <button onclick="updateCategory(${index})" class="p-1.5 rounded-lg bg-teal-500/10 text-teal-300 hover:bg-teal-500/20 text-xs" title="حفظ التسمية">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button onclick="deleteCategory(${index})" class="p-1.5 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 text-xs" title="حذف التصنيف">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                listContainer.appendChild(div);
+            });
+        }
+
+        function addNewCategory() {
+            const input = document.getElementById('new-category-input');
+            const val = input.value.trim();
+            if (!val) {
+                showToast("الرجاء إدخال اسم التصنيف");
+                return;
+            }
+            if (categories.includes(val)) {
+                showToast("التصنيف موجود مسبقاً");
+                return;
+            }
+            categories.push(val);
+            input.value = '';
+            saveDataToStorage();
+            renderCategoriesBar();
+            renderAdminCategoriesList();
+            renderCategorySelectOptions();
+            showToast("تمت إضافة التصنيف بنجاح!");
+        }
+
+        function updateCategory(index) {
+            const input = document.getElementById(`cat-edit-${index}`);
+            const newVal = input.value.trim();
+            if (!newVal) {
+                showToast("لا يمكن ترك اسم التصنيف فارغاً");
+                return;
+            }
+            const oldVal = categories[index];
+            if (oldVal === newVal) return;
+
+            categories[index] = newVal;
+            products.forEach(p => {
+                if (p.category === oldVal) p.category = newVal;
+            });
+
+            saveDataToStorage();
+            renderCategoriesBar();
+            renderAdminCategoriesList();
+            renderCategorySelectOptions();
+            renderCatalog();
+            renderAdminTable();
+            showToast("تم تحديث اسم التصنيف بنجاح!");
+        }
+
+        function deleteCategory(index) {
+            const catToDelete = categories[index];
+            showConfirm("تحذير الحذف", `هل أنت متأكد من حذف التصنيف "${catToDelete}"؟ سيتم نقل المنتجات المرتبطة به للتصنيف الأول.`, function() {
+                categories.splice(index, 1);
+                if (categories.length === 0) categories = ["عام"];
+                
+                products.forEach(p => {
+                    if (p.category === catToDelete) {
+                        p.category = categories[0];
+                    }
+                });
+
+                if (currentFilter === catToDelete) currentFilter = 'all';
+
+                saveDataToStorage();
+                renderCategoriesBar();
+                renderAdminCategoriesList();
+                renderCategorySelectOptions();
+                renderCatalog();
+                renderAdminTable();
+                showToast("تم حذف التصنيف بنجاح");
+            });
+        }
+
+        function filterCategory(cat) {
+            currentFilter = cat;
+            renderCategoriesBar();
+            renderCatalog();
+        }
+
+        // ... existing helper & render functions remain intact ...
+        function manualRefresh() {
+            loadData();
+            loadStoreConfig();
+            renderCategoriesBar();
+            renderAdminCategoriesList();
+            renderCategorySelectOptions();
+            renderCatalog();
+            renderAdminTable();
+            showToast("تم تحديث الكتالوج بنجاح!");
+        }
+
+        function renderCatalog() {
+            const grid = document.getElementById('catalog-grid');
+            const emptyMsg = document.getElementById('empty-catalog-msg');
+            const searchVal = document.getElementById('search-input').value.toLowerCase().trim();
+            grid.innerHTML = '';
+
+            const filtered = products.filter(p => {
+                const matchCat = (currentFilter === 'all') || (p.category === currentFilter);
+                const matchSearch = p.name.toLowerCase().includes(searchVal) || p.description.toLowerCase().includes(searchVal);
+                return matchCat && matchSearch;
+            });
+
+            if (filtered.length === 0) {
+                emptyMsg.classList.remove('hidden');
+            } else {
+                emptyMsg.classList.add('hidden');
+                filtered.forEach(p => {
+                    const userAction = userInteractions[p.id];
+                    const card = document.createElement('div');
+                    card.className = "glass-card rounded-3xl overflow-hidden flex flex-col justify-between group";
+                    card.innerHTML = `
+                        <div>
+                            <div class="relative h-52 overflow-hidden bg-black/40 cursor-pointer" onclick="openModal('${p.id}')">
+                                <img src="${p.image}" alt="${p.name}" onerror="this.src='https://placehold.co/600x400/121620/ffffff?text=GLOW_HOME'" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute top-3 right-3">
+                                    <span class="bg-black/60 backdrop-blur-md text-teal-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-teal-500/30">${p.category}</span>
+                                </div>
+                            </div>
+                            <div class="p-4 space-y-2.5">
+                                <h3 class="font-bold text-white text-base group-hover:text-teal-300 transition-colors cursor-pointer line-clamp-1" onclick="openModal('${p.id}')">${p.name}</h3>
+                                <div class="text-[11px] text-gray-300 grid grid-cols-2 gap-1 bg-white/5 p-2 rounded-xl border border-white/5">
+                                    <div>الطول: <span class="text-teal-400 font-bold">${p.dimensions?.length || '-'} سم</span></div>
+                                    <div>العرض: <span class="text-teal-400 font-bold">${p.dimensions?.width || '-'} سم</span></div>
+                                    <div>الارتفاع: <span class="text-teal-400 font-bold">${p.dimensions?.height || '-'} سم</span></div>
+                                    <div>القطر: <span class="text-teal-400 font-bold">${p.dimensions?.diameter || '-'} سم</span></div>
+                                </div>
+                                <div class="flex items-center justify-between pt-1">
+                                    <div class="flex items-center gap-1 text-amber-400 text-xs">
+                                        ${[1,2,3,4,5].map(star => `<i class="fa-${star <= (p.userRating || 5) ? 'solid' : 'regular'} fa-star cursor-pointer hover:scale-125 transition-transform" onclick="rateProduct('${p.id}', ${star})"></i>`).join('')}
+                                    </div>
+                                    <span class="text-[10px] text-gray-400 font-medium">(${p.userRating || 5}.0)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 pt-0 space-y-3">
+                            <div class="grid grid-cols-2 gap-2">
+                                <button onclick="toggleReaction('${p.id}', 'like')" class="py-1.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all border ${userAction === 'like' ? 'bg-teal-500 text-gray-950 border-teal-400 shadow-md font-extrabold' : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'}">
+                                    <i class="fa-solid fa-thumbs-up"></i>
+                                    <span>${p.likes || 0}</span>
+                                </button>
+                                <button onclick="toggleReaction('${p.id}', 'dislike')" class="py-1.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all border ${userAction === 'dislike' ? 'bg-pink-600 text-white border-pink-500 shadow-md font-extrabold' : 'bg-white/5 text-gray-300 border-white/10 hover:bg-white/10'}">
+                                    <i class="fa-solid fa-thumbs-down"></i>
+                                    <span>${p.dislikes || 0}</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between border-t border-white/10 pt-2">
+                                <span class="text-[11px] text-gray-400">السعر:</span>
+                                <span class="text-base font-black text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-purple-400">${formatCurrency(p.price)}</span>
+                            </div>
+                            <a href="${storeInstagramUrl}" target="_blank" class="w-full py-2.5 rounded-xl font-bold text-white text-xs flex items-center justify-center gap-2 transition-all bg-gradient-to-r from-brand-turquoise to-teal-600 hover:opacity-90 shadow-lg shadow-brand-turquoise/20">
+                                <i class="fa-brands fa-instagram text-base"></i>
+                                <span>اطلبه الان</span>
+                            </a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                });
+            }
+        }
+
+        function formatCurrency(val) {
+            return Number(val).toLocaleString() + " د.ع";
+        }
+
+        function checkAdminAccess() {
+            if (isAdminAuthenticated) {
+                setMode('admin');
+            } else {
+                document.getElementById('password-modal').classList.remove('hidden');
+                document.getElementById('admin-pass-input').value = '';
+                document.getElementById('admin-pass-input').focus();
+            }
+        }
+
+        function closePasswordModal() {
+            document.getElementById('password-modal').classList.add('hidden');
+        }
+
+        function verifyPassword(event) {
+            event.preventDefault();
+            const passInput = document.getElementById('admin-pass-input').value;
+            if (passInput === ADMIN_PASS) {
+                isAdminAuthenticated = true;
+                closePasswordModal();
+                setMode('admin');
+                showToast("تم تسجيل الدخول بنجاح!");
+            } else {
+                showToast("كلمة المرور غير صحيحة!");
+                document.getElementById('admin-pass-input').value = '';
+            }
+        }
+
+        function updateCounts() {
+            const countEl = document.getElementById('total-products-count');
+            const adminBadge = document.getElementById('admin-count-badge');
+            if (countEl) countEl.innerText = products.length;
+            if (adminBadge) adminBadge.innerText = products.length + " منتجات";
+        }
+
+        function setMode(mode) {
+            const userView = document.getElementById('view-customer');
+            const adminView = document.getElementById('view-admin');
+            const userBtn = document.getElementById('btn-user-view');
+            const adminBtn = document.getElementById('btn-admin-view');
+
+            if (mode === 'user') {
+                userView.classList.remove('hidden');
+                adminView.classList.add('hidden');
+                userBtn.className = "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md";
+                adminBtn.className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1.5";
+                renderCatalog();
+            } else {
+                userView.classList.add('hidden');
+                adminView.classList.remove('hidden');
+                adminBtn.className = "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 bg-gradient-to-r from-brand-turquoise to-teal-600 text-white shadow-md";
+                userBtn.className = "px-3.5 py-1.5 rounded-lg text-gray-400 hover:text-white transition-all flex items-center gap-1.5";
+                renderAdminCategoriesList();
+                renderCategorySelectOptions();
+                renderAdminTable();
+            }
+        }
+
+        function toggleReaction(productId, type) {
+            const p = products.find(prod => prod.id === productId);
+            if (!p) return;
+            if (!p.likes) p.likes = 0;
+            if (!p.dislikes) p.dislikes = 0;
+            const current = userInteractions[productId];
+            if (current === type) {
+                if (type === 'like') p.likes = Math.max(0, p.likes - 1);
+                if (type === 'dislike') p.dislikes = Math.max(0, p.dislikes - 1);
+                delete userInteractions[productId];
+            } else {
+                if (current === 'like') p.likes = Math.max(0, p.likes - 1);
+                if (current === 'dislike') p.dislikes = Math.max(0, p.dislikes - 1);
+                if (type === 'like') p.likes += 1;
+                if (type === 'dislike') p.dislikes += 1;
+                userInteractions[productId] = type;
+            }
+            saveDataToStorage();
+            renderCatalog();
+        }
+
+        function rateProduct(productId, stars) {
+            const p = products.find(prod => prod.id === productId);
+            if (!p) return;
+            p.userRating = stars;
+            saveDataToStorage();
+            renderCatalog();
+            showToast("تم التقييم بنجاح ⭐");
+        }
+
+        function prepareFormSubmit(event) {
+            event.preventDefault();
+            const editId = document.getElementById('edit-product-id').value;
+            const name = document.getElementById('prod-name').value.trim();
+            const category = document.getElementById('prod-category').value;
+            const price = parseFloat(document.getElementById('prod-price').value);
+            const desc = document.getElementById('prod-desc').value.trim();
+            const dimensions = {
+                length: document.getElementById('prod-len').value.trim(),
+                width: document.getElementById('prod-wid').value.trim(),
+                height: document.getElementById('prod-hei').value.trim(),
+                diameter: document.getElementById('prod-dia').value.trim()
+            };
+            let imageData = document.getElementById('prod-image-data').value;
+
+            if (!editId && !imageData) {
+                showToast("الرجاء اختيار صورة للمنتج الجديد");
+                return;
+            }
+            if (editId && !imageData) {
+                const existing = products.find(p => p.id === editId);
+                if (existing) imageData = existing.image;
+            }
+
+            if (editId) {
+                const idx = products.findIndex(p => p.id === editId);
+                if (idx !== -1) {
+                    products[idx] = { ...products[idx], name, category, price, dimensions, image: imageData, description: desc };
+                }
+                showToast("تم تحديث المنتج بنجاح!");
+            } else {
+                const newProd = {
+                    id: "glow_" + Date.now(),
+                    name, category, price, dimensions, likes: 0, dislikes: 0, userRating: 5, image: imageData, description: desc
+                };
+                products.unshift(newProd);
+                showToast("تمت إضافة المنتج بنجاح!");
+            }
+            saveDataToStorage();
+            resetForm();
+            renderAdminTable();
+            renderCatalog();
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = '';
+            products.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-white/5 transition-colors";
+                tr.innerHTML = `
+                    <td class="p-3.5 flex items-center gap-3">
+                        <img src="${p.image}" class="w-11 h-11 rounded-xl object-cover border border-white/10" onerror="this.src='https://placehold.co/100x100'">
+                        <div><span class="font-bold text-white block">${p.name}</span><span class="text-[10px] text-gray-400">${p.id}</span></div>
+                    </td>
+                    <td class="p-3.5 text-teal-300 font-semibold">${p.category}</td>
+                    <td class="p-3.5 font-bold text-purple-300">${formatCurrency(p.price)}</td>
+                    <td class="p-3.5 text-gray-300 text-[11px]">ط: ${p.dimensions?.length||'-'}، ع: ${p.dimensions?.width||'-'}</td>
+                    <td class="p-3.5 text-center">
+                        <div class="flex items-center justify-center gap-2">
+                            <button onclick="editProduct('${p.id}')" class="p-2 rounded-xl bg-teal-500/10 text-teal-300 hover:bg-teal-500/25 border border-teal-500/30 text-xs"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteProduct('${p.id}')" class="p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/25 border border-red-500/30 text-xs"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function editProduct(id) {
+            const p = products.find(prod => prod.id === id);
+            if (!p) return;
+            document.getElementById('edit-product-id').value = p.id;
+            document.getElementById('prod-name').value = p.name;
+            document.getElementById('prod-category').value = p.category;
+            document.getElementById('prod-price').value = p.price;
+            document.getElementById('prod-desc').value = p.description;
+            document.getElementById('prod-len').value = p.dimensions?.length || '';
+            document.getElementById('prod-wid').value = p.dimensions?.width || '';
+            document.getElementById('prod-hei').value = p.dimensions?.height || '';
+            document.getElementById('prod-dia').value = p.dimensions?.diameter || '';
+            document.getElementById('prod-image-data').value = p.image;
+            document.getElementById('image-upload-label').innerText = "تم الاحتفاظ بالصورة الحالية ✓";
+            document.getElementById('image-preview-img').src = p.image;
+            document.getElementById('image-preview-container').classList.remove('hidden');
+            document.getElementById('form-title').innerText = "تعديل المنتج";
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+
+        function deleteProduct(id) {
+            showConfirm("تأكيد الحذف", "هل أنت متأكد من حذف هذا المنتج؟", function() {
+                products = products.filter(p => p.id !== id);
+                saveDataToStorage();
+                renderAdminTable();
+                renderCatalog();
+                showToast("تم الحذف بنجاح");
+            });
+        }
+
+        function resetForm() {
+            document.getElementById('product-form').reset();
+            document.getElementById('edit-product-id').value = '';
+            document.getElementById('prod-image-data').value = '';
+            document.getElementById('image-upload-label').innerText = "اختر صورة من جهازك...";
+            document.getElementById('image-preview-container').classList.add('hidden');
+            document.getElementById('form-title').innerText = "إضافة منتج جديد";
+        }
+
+        function confirmResetDefaults() {
+            showConfirm("استعادة الافتراضي", "هل تريد إعادة تعيين كافة البيانات التصنيفات والإعدادات؟", function() {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(CATEGORIES_STORAGE_KEY);
+                categories = ["أدوات المطبخ", "الزينة والديكور"];
+                products = [...initialProducts];
+                saveDataToStorage();
+                loadStoreConfig();
+                renderCategoriesBar();
+                renderAdminCategoriesList();
+                renderCategorySelectOptions();
+                renderAdminTable();
+                renderCatalog();
+                showToast("تمت الاستعادة بنجاح");
+            });
+        }
+
+        let pendingConfirmCallback = null;
+        function showConfirm(title, msg, callback) {
+            document.getElementById('confirm-title').innerText = title;
+            document.getElementById('confirm-msg').innerText = msg;
+            pendingConfirmCallback = callback;
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+        document.getElementById('confirm-ok-btn').onclick = function() {
+            document.getElementById('confirm-modal').classList.add('hidden');
+            if (pendingConfirmCallback) { pendingConfirmCallback(); pendingConfirmCallback = null; }
+        };
+        function closeConfirmModal() { document.getElementById('confirm-modal').classList.add('hidden'); pendingConfirmCallback = null; }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 3500);
+        }
+        
+        function handleImageFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                document.getElementById('prod-image-data').value = base64;
+                document.getElementById('image-upload-label').innerText = "تم رفع الصورة بنجاح ✓";
+                document.getElementById('image-preview-img').src = base64;
+                document.getElementById('image-preview-container').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+        function clearImageSelection() {
+            document.getElementById('prod-image-data').value = '';
+            document.getElementById('prod-image-file').value = '';
+            document.getElementById('image-upload-label').innerText = "اختر صورة من جهازك...";
+            document.getElementById('image-preview-container').classList.add('hidden');
+        }
+        function handleAdminLogoSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                localStorage.setItem(LOGO_STORAGE_KEY, e.target.result);
+                loadStoreConfig();
+                showToast("تم تحديث الشعار بنجاح!");
+            };
+            reader.readAsDataURL(file);
+        }
+        function saveInstagramUrl() {
+            const val = document.getElementById('admin-instagram-url-input').value.trim();
+            if (!val) return;
+            storeInstagramUrl = val;
+            localStorage.setItem(INSTAGRAM_URL_KEY, val);
+            showToast("تم حفظ رابط انستغرام!");
+        }
+    </script>
+</body>
+</html>
