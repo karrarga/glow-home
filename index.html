@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLOW_HOME | للآواني وأدوات المنزل الفاخرة</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #050508;
+            color: #f4f4f5;
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo } = React;
+
+        const DEFAULT_PRODUCTS = [
+            {
+                id: 'p1',
+                name: 'طقم أواني ستانلس ستيل فاخر',
+                description: 'طقم أواني فاخر مصنّع من أحدث خامات الستانلس ستيل المقاوم للصدأ بدرجة 18/10.',
+                dimensions: { diameter: 24, height: 12 },
+                pieceCount: 10,
+                price: '459',
+                oldPrice: '599',
+                category: 'cookware',
+                image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=800&q=80',
+                badge: 'sale',
+                featured: true,
+            }
+        ];
+
+        const DEFAULT_SETTINGS = {
+            storeName: 'GLOW_HOME',
+            tagline: 'للأدوات المنزلية والمطبخ الفاخرة',
+            instagramUrl: 'https://www.instagram.com/0_glow.home/',
+            logo: null
+        };
+
+        function App() {
+            const [products, setProducts] = useState(() => {
+                const saved = localStorage.getItem('glow_home_products');
+                return saved ? JSON.parse(saved) : DEFAULT_PRODUCTS;
+            });
+            
+            const [settings, setSettings] = useState(() => {
+                const saved = localStorage.getItem('glow_home_settings');
+                return saved ? JSON.parse(saved) : DEFAULT_SETTINGS;
+            });
+
+            const [selectedCategory, setSelectedCategory] = useState('all');
+            const [searchQuery, setSearchQuery] = useState('');
+            const [viewingProduct, setViewingProduct] = useState(null);
+            const [adminOpen, setAdminOpen] = useState(false);
+            const [password, setPassword] = useState('');
+            const [isAuth, setIsAuth] = useState(false);
+            const [toast, setToast] = useState(null);
+
+            useEffect(() => {
+                localStorage.setItem('glow_home_products', JSON.stringify(products));
+            }, [products]);
+
+            useEffect(() => {
+                localStorage.setItem('glow_home_settings', JSON.stringify(settings));
+            }, [settings]);
+
+            const showToast = (msg) => {
+                setToast(msg);
+                setTimeout(() => setToast(null), 3000);
+            };
+
+            const handleOrder = (product) => {
+                const msg = `مرحباً ${settings.storeName} 👋\nأرغب في طلب المنتج:\n🛍️ ${product.name}\n💰 السعر: ${product.price} د.ع`;
+                const textArea = document.createElement("textarea");
+                textArea.value = msg;
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast('تم نسخ تفاصيل الطلب! جارٍ تحويلك لانستغرام...');
+                } catch (err) {
+                    console.error('Copy failed', err);
+                }
+                document.body.removeChild(textArea);
+                setTimeout(() => {
+                    window.open(settings.instagramUrl, '_blank');
+                }, 1200);
+            };
+
+            const filteredProducts = useMemo(() => {
+                return products.filter(p => {
+                    const matchesCat = selectedCategory === 'all' || p.category === selectedCategory;
+                    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase());
+                    return matchesCat && matchesSearch;
+                });
+            }, [products, selectedCategory, searchQuery]);
+
+            return (
+                <div className="min-h-screen bg-[#050508] text-zinc-100 font-sans selection:bg-teal-500 selection:text-zinc-950">
+                    {toast && (
+                        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-zinc-900 border border-teal-500/40 px-6 py-3 rounded-2xl shadow-2xl text-teal-400 font-bold text-sm">
+                            {toast}
+                        </div>
+                    )}
+
+                    <header className="sticky top-0 z-40 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-900">
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-2xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center text-teal-400 font-black text-xl">
+                                    {settings.logo ? <img src={settings.logo} className="w-full h-full object-cover rounded-2xl" /> : 'G'}
+                                </div>
+                                <div>
+                                    <h1 className="text-xl font-black text-teal-400 tracking-tight">{settings.storeName}</h1>
+                                    <p className="text-xs text-zinc-400 font-medium">{settings.tagline}</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                <a href={settings.instagramUrl} target="_blank" className="hidden sm:flex items-center gap-2 px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-zinc-950 text-sm font-bold shadow-lg transition">
+                                    <span>انستغرام</span>
+                                </a>
+                                <button onClick={() => setAdminOpen(true)} className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400 hover:text-white transition">
+                                    ⚙️
+                                </button>
+                            </div>
+                        </div>
+                    </header>
+
+                    <section className="pt-16 pb-20 px-4 text-center">
+                        <div className="max-w-3xl mx-auto">
+                            <span className="px-4 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-teal-400 text-xs font-bold inline-block mb-6">
+                                ✨ تشكيلة فاخرة ومنتقاة بعناية
+                            </span>
+                            <h2 className="text-4xl sm:text-6xl font-black text-zinc-100 leading-tight">
+                                اجعل منزلك ومطبخك يتألق <span className="text-teal-400 block mt-2">بفخامة منتجات كلو هوم</span>
+                            </h2>
+                            <p className="text-zinc-400 text-base sm:text-lg mt-6">
+                                تسوق أرقى أدوات المطبخ والمنزل والأواني الفاخرة واطلبها بضغطة زر واحدة عبر انستغرام.
+                            </p>
+                        </div>
+                    </section>
+
+                    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+                        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10">
+                            <div className="flex items-center gap-2 overflow-x-auto w-full sm:w-auto pb-2 no-scrollbar">
+                                {[
+                                    { id: 'all', label: 'الكل' },
+                                    { id: 'cookware', label: 'أواني الطهي' },
+                                    { id: 'kitchen', label: 'أدوات المطبخ' },
+                                    { id: 'dining', label: 'أدوات المائدة' },
+                                    { id: 'decor', label: 'ديكور المنزل' },
+                                ].map(cat => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => setSelectedCategory(cat.id)}
+                                        className={`px-5 py-2.5 rounded-2xl font-bold text-sm whitespace-nowrap transition border ${
+                                            selectedCategory === cat.id
+                                                ? 'bg-teal-500 text-zinc-950 border-teal-400 shadow-lg'
+                                                : 'bg-zinc-900 text-zinc-400 border-zinc-800 hover:text-white'
+                                        }`}
+                                    >
+                                        {cat.label}
+                                    </button>
+                                ))}
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="ابحث عن منتج..."
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                className="w-full sm:w-72 px-4 py-3 rounded-2xl bg-zinc-900 border border-zinc-800 text-zinc-100 text-sm focus:outline-none focus:border-teal-500"
+                            />
+                        </div>
+
+                        {filteredProducts.length === 0 ? (
+                            <div className="text-center py-20 bg-zinc-900/30 rounded-3xl border border-zinc-800">
+                                <p className="text-zinc-400 text-lg">لا توجد منتجات مطابقة للبحث</p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                                {filteredProducts.map(product => (
+                                    <div key={product.id} className="bg-zinc-900/90 rounded-3xl p-3 border border-zinc-800 hover:border-teal-500/50 transition flex flex-col justify-between">
+                                        <div>
+                                            <div 
+                                                className="relative aspect-square rounded-2xl overflow-hidden bg-zinc-950 cursor-pointer mb-4"
+                                                onClick={() => setViewingProduct(product)}
+                                            >
+                                                <img src={product.image} alt={product.name} className="w-full h-full object-cover hover:scale-105 transition duration-500" />
+                                                {product.pieceCount && (
+                                                    <span className="absolute top-3 right-3 px-3 py-1 rounded-full bg-zinc-950/80 text-teal-400 text-xs font-bold border border-teal-500/30 backdrop-blur-md">
+                                                        {product.pieceCount} قطع
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <h3 className="font-bold text-zinc-100 text-base mb-2 line-clamp-1">{product.name}</h3>
+                                            <div className="flex items-baseline gap-2 mb-4">
+                                                <span className="text-2xl font-black text-teal-400">{product.price}</span>
+                                                <span className="text-xs text-zinc-500 font-bold">د.ع</span>
+                                                {product.oldPrice && <span className="text-xs text-zinc-600 line-through">{product.oldPrice} د.ع</span>}
+                                            </div>
+                                        </div>
+                                        <button
+                                            onClick={() => handleOrder(product)}
+                                            className="w-full py-3 rounded-xl bg-zinc-800 hover:bg-teal-500 text-zinc-200 hover:text-zinc-950 font-black text-sm transition border border-zinc-700"
+                                        >
+                                            اطلب الآن
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+                    </main>
+
+                    {adminOpen && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+                            <div className="bg-zinc-900 rounded-3xl max-w-lg w-full p-6 border border-zinc-800 relative max-h-[90vh] overflow-y-auto">
+                                <button onClick={() => setAdminOpen(false)} className="absolute top-4 left-4 text-zinc-400 hover:text-white">✕</button>
+                                {!isAuth ? (
+                                    <div className="py-8 text-center">
+                                        <h3 className="text-xl font-bold mb-4">لوحة التحكم المحمية</h3>
+                                        <input
+                                            type="password"
+                                            placeholder="كلمة المرور (glow2024)"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            className="w-full px-4 py-3 rounded-xl bg-zinc-950 border border-zinc-800 text-center mb-4 text-lg focus:outline-none focus:border-teal-500"
+                                        />
+                                        <button
+                                            onClick={() => {
+                                                if(password === 'glow2024') setIsAuth(true);
+                                                else showToast('كلمة المرور غير صحيحة');
+                                            }}
+                                            className="w-full py-3.5 rounded-xl bg-teal-500 text-zinc-950 font-black"
+                                        >
+                                            دخول
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <h3 className="text-xl font-bold mb-6">إدارة المنتجات</h3>
+                                        <button
+                                            onClick={() => {
+                                                const name = prompt('اسم المنتج:');
+                                                const price = prompt('السعر (د.ع):');
+                                                const image = prompt('رابط الصورة:');
+                                                if(name && price && image) {
+                                                    const newP = { id: Date.now().toString(), name, price, image, category: 'cookware' };
+                                                    setProducts([newP, ...products]);
+                                                    showToast('تمت إضافة المنتج بنجاح');
+                                                }
+                                            }}
+                                            className="w-full py-3.5 rounded-xl bg-teal-500 text-zinc-950 font-black mb-6"
+                                        >
+                                            + إضافة منتج جديد
+                                        </button>
+                                        <div className="space-y-3">
+                                            {products.map(p => (
+                                                <div key={p.id} className="flex items-center justify-between bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+                                                    <span className="font-bold text-sm truncate">{p.name}</span>
+                                                    <button
+                                                        onClick={() => {
+                                                            setProducts(products.filter(x => x.id !== p.id));
+                                                            showToast('تم الحذف');
+                                                        }}
+                                                        className="text-rose-400 text-xs font-bold px-3 py-1.5 rounded-lg bg-rose-500/10"
+                                                    >
+                                                        حذف
+                                                    </button>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
